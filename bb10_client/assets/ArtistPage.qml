@@ -37,5 +37,19 @@ Page {
         Container {                        
             SongListView {}    
         }        
-    }    
+    } 
+    
+    actions: [            
+        InvokeActionItem {
+            title: qsTr("Share")
+            ActionBar.placement: ActionBarPlacement.InOverflow
+            query {
+                mimeType: "text/plain"
+                invokeActionId: "bb.action.SHARE"
+            }
+            onTriggered: {
+                //data =  "Song: " + ayer." + playerController.pid + "." + playerController.personal.firstname + "-" + playerController.personal.lastname + ".html"
+            }            
+        }
+    ]
 }
