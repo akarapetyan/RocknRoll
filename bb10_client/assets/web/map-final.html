@@ -12,25 +12,33 @@
 	var dummyData = [ {
 		year : 2000,
 		gener : [ {
-			popularity : 0.2,
+			popularity : 0.8,
 			Latitude : 42.73383,
 			Longitude : -84.59334
 		}, {
-			popularity : 0.3,
+			popularity : 0.1,
 			Latitude : 82.73383,
 			Longitude : -44.59334
-		} ]
+		}, {
+			popularity : 0.1,
+			Latitude : 32.73383,
+			Longitude : -44.59334
+		}]
 	}, {
 		year : 2001,
 		gener : [ {
-			popularity : 0.3,
+			popularity : 0.1,
 			Latitude : 42.73383,
 			Longitude : -84.59334
 		}, {
-			popularity : 0.4,
+			popularity : 0.2,
 			Latitude : 82.73383,
 			Longitude : -44.59334
-		} ]
+		}, {
+			popularity : 0.4,
+			Latitude : 32.73383,
+			Longitude : -44.59334
+		}]
 	}, {
 		year : 2002,
 		gener : [ {
@@ -41,7 +49,11 @@
 			popularity : 0.5,
 			Latitude : 82.73383,
 			Longitude : -44.59334
-		} ]
+		}, {
+			popularity : 0.6,
+			Latitude : 32.73383,
+			Longitude : -44.59334
+		}]
 	}, {
 		year : 2003,
 		gener : [ {
@@ -52,7 +64,11 @@
 			popularity : 0.6,
 			Latitude : 82.73383,
 			Longitude : -44.59334
-		} ]
+		}, {
+			popularity : 0.4,
+			Latitude : 32.73383,
+			Longitude : -44.59334
+		}]
 	}, {
 		year : 2004,
 		gener : [ {
@@ -63,18 +79,26 @@
 			popularity : 0.7,
 			Latitude : 82.73383,
 			Longitude : -44.59334
-		} ]
+		}, {
+			popularity : 0.9,
+			Latitude : 32.73383,
+			Longitude : -44.59334
+		}]
 	}, {
 		year : 2005,
 		gener : [ {
-			popularity : 0.7,
+			popularity : 0.8,
 			Latitude : 42.73383,
 			Longitude : -84.59334
 		}, {
 			popularity : 0.8,
 			Latitude : 82.73383,
 			Longitude : -44.59334
-		} ]
+		}, {
+			popularity : 0.7,
+			Latitude : 82.73383,
+			Longitude : -44.59334
+		}]
 	} ];
 	
 	editedData.push([ 'Latitude', 'Longitude', 'popularity' ]);
@@ -83,13 +107,16 @@
 	}
 
 	function drawMarkersMap() {
+		var timer;
 		function playOneFrame() {
-			if (step < dummyData[0].gener.length) {
+			if (step < dummyData.length) {
+				//alert("");
 				for ( var i = 0; i < data.getNumberOfRows(); i++) {
-					data.setValue(i, 1, dummyData[step].gener[i].hottness);
-					data.setValue(i, 2, dummyData[step].gener[i].popular);
+					data.setValue(i, 2, dummyData[step].gener[i].popularity);					
 				}
 				chart.draw(data, options);
+			} else {
+				clearTimeout(timer);
 			}
 			step++;
 		}
@@ -97,29 +124,27 @@
 		var data = google.visualization.arrayToDataTable(editedData);
 
 		var options = {
-			displayMode : 'markers',
+			displayMode: 'markers',
 			animation : {
 				duration : 500,
 				easing : 'out'
 			},
 			colorAxis : {
 				minValue : 0,
-				colors : [ '#FF0000', '#00FF00' ]
+				colors : [ '#FF0000', '#0000FF', '#00FF00' ]
 			}
 		};
 
 		var chart = new google.visualization.GeoChart(document
 				.getElementById('chart_div'));
 		chart.draw(data, options);
-
-		var interval;
+		
 		var button = document.getElementById('example1-b1');
 		button.onclick = function() {
 			playOneFrame();
+			timer = setInterval(function(){playOneFrame();},1000);
 		}
-		google.visualization.events.addListener(chart, 'animationfinish', function(){			
-			playOneFrame();
-		});
+		
 	};
 </script>
 </head>
