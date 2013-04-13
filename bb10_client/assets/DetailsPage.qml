@@ -52,7 +52,7 @@ Page {
             }
             onTouch: {
                 if(TouchType.Up == event.touchType) {
-                    var page = genrePageDefinition.createObject();		                                        
+                    var page = webPageDefinition.createObject();		                                        
                     navigationPane.push(page);
                     OrientationSupport.supportedDisplayOrientation = SupportedDisplayOrientation.DisplayPortrait;
                 }
@@ -63,6 +63,10 @@ Page {
             ComponentDefinition {
                 id: genrePageDefinition
                 source: "GenrePage.qml"
+            },
+            ComponentDefinition {
+                id: webPageDefinition
+                source: "WebPage.qml"
             }
         ]        
     }
