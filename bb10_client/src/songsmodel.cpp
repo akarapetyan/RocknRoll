@@ -1,19 +1,19 @@
 #include <bb/data/JsonDataAccess>
 
-#include "albumsmodel.hpp"
+#include "songsmodel.hpp"
 
 using namespace bb::cascades;
 using namespace bb::data;
 
-AlbumsDataModel::AlbumsDataModel(QObject *parent)
+SongsDataModel::SongsDataModel(QObject *parent)
     : bb::cascades::GroupDataModel(parent)
 {
 }
 
-void AlbumsDataModel::updateList()
+void SongsDataModel::updateList()
 {
 	QDir dir = QDir::home();
-	if (dir.cd("albums")) {
+	if (dir.cd("songs")) {
 		QStringList listOfFiles = dir.entryList(QDir::Dirs);
 		for (int i = 0; i < listOfFiles.size() - 2; i++) {
 			QVariantList indexPath;
@@ -27,10 +27,10 @@ void AlbumsDataModel::updateList()
 //	insertList(tmp);
 }
 
-int AlbumsDataModel::getItemsCount(const QString &strAlbumName)
+int SongsDataModel::getItemsCount(const QString &strAlbumName)
 {
 	QDir dir = QDir::home();
-	if (dir.cd("albums")) {
+	if (dir.cd("songs")) {
 		if (dir.cd(strAlbumName)) {
 			QStringList listOfFiles = dir.entryList(QDir::Files);
 			return listOfFiles.count();
@@ -39,11 +39,11 @@ int AlbumsDataModel::getItemsCount(const QString &strAlbumName)
 	return 0;
 }
 
-int AlbumsDataModel::childCount(const QVariantList& indexPath)
+int SongsDataModel::childCount(const QVariantList& indexPath)
 {
-    return 200;
+    return 125;
  	QDir dir = QDir::home();
-	if (dir.cd("albums")) {
+	if (dir.cd("songs")) {
 		QStringList listOfFiles = dir.entryList(QDir::Dirs);
 		return listOfFiles.count() - 2;
 	}
@@ -51,12 +51,12 @@ int AlbumsDataModel::childCount(const QVariantList& indexPath)
     return 0;
 }
 
-bool AlbumsDataModel::hasChildren(const QVariantList& indexPath)
+bool SongsDataModel::hasChildren(const QVariantList& indexPath)
 {
 	return false;
 }
 
-QVariant AlbumsDataModel::setupAlbumListModel()
+QVariant SongsDataModel::setupAlbumListModel()
 {
     // Create a new GroupDataModel; the GroupDataModel is a helper class that ListView uses for data handling.
     // It uses in-memory storage so we can populate data.
@@ -75,23 +75,23 @@ QVariant AlbumsDataModel::setupAlbumListModel()
     return existingAlbums;
 }
 
-QVariant AlbumsDataModel::data(const QVariantList& indexPath)
+QVariant SongsDataModel::data(const QVariantList& indexPath)
 {
 	QVariantMap data;
 	QDir dir = QDir::home();
-	if (dir.cd("albums")) {
+	if (dir.cd("songs")) {
 		QStringList listOfFiles = dir.entryList(QDir::Dirs);
 		listOfFiles.removeOne(".");
 		listOfFiles.removeOne("..");
 //		data["albumName"] = listOfFiles.at(indexPath[0].toInt());
 //		data["itemsCount"] = getItemsCount(listOfFiles.at(indexPath[0].toInt()));
-		data["albumName"] = "test";
+		data["albumName"] = "songs";
 		//data["itemsCount"] = getItemsCount(listOfFiles.at(indexPath[0].toInt()));
 	}
 	return data;
 }
 
-QString AlbumsDataModel::itemType(const QVariantList& indexPath)
+QString SongsDataModel::itemType(const QVariantList& indexPath)
 {
 	return QLatin1String("item");
 }

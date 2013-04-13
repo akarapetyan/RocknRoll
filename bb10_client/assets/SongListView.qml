@@ -3,7 +3,7 @@ import bb.system 1.0
 
 ListView {
     property int page_type: -1
-    dataModel: _model
+    dataModel: _model2
     listItemComponents: [
         ListItemComponent {
             type: "item"
