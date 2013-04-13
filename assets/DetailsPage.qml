@@ -14,7 +14,7 @@ Page {
         }
     }
     Container {
-        background: Color.Black
+        background: Color.White
         Label {
             text: qsTr("Hottness/Energy Graph")
             horizontalAlignment: HorizontalAlignment.Center
@@ -23,9 +23,24 @@ Page {
                 color: Color.Yellow
             }
         }
-        WebView {
-            id: webView
-            url: "local:///assets/web/test.html"    
+        ScrollView {
+            horizontalAlignment: HorizontalAlignment.Fill
+            verticalAlignment: VerticalAlignment.Fill
+            scrollViewProperties.pinchToZoomEnabled: true
+            scrollViewProperties.scrollMode: ScrollMode.Both
+            
+            WebView {
+                id: webView
+                url: "local:///assets/web/test.html"
+                
+                onMinContentScaleChanged: {
+                    scrollView.scrollViewProperties.minContentScale = minContentScale;
+                }
+                
+                onMaxContentScaleChanged: {
+                    scrollView.scrollViewProperties.maxContentScale = maxContentScale;
+                }
+            }        
         }
     }
 }
