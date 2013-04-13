@@ -2,9 +2,6 @@ import bb.cascades 1.0
 import bb.system 1.0
 
 Container {
-    property string strPhotosCount: "10"
-    property string itemName: ""
-    
     id: albumContainer
 	layout: DockLayout {}
 	background: Color.White
@@ -65,6 +62,7 @@ Container {
 	        }
 	        
 	        onTouch: {
+	            console.log("on enter touch !!!!!!!!!!!!!!!! ")
 	            if (event.touchType == TouchType.Up) {
                     itemRoot.ListItem.view.openAlbum(ListItemData.albumName);
                 }

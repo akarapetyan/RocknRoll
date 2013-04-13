@@ -31,19 +31,11 @@ Page {
                 Label {
                     text: "Music List"
                 }    
-            }
-            
+            }            
         }
         
         Container {                        
-            AlbumListView {}    
+            SongListView {}    
         }        
-    }
-    
-    attachedObjects: [
-        ComponentDefinition {
-            id: webPageDefinition
-            source: "WebPage.qml"
-        }
-    ]
+    }    
 }

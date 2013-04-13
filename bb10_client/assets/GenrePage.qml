@@ -32,18 +32,11 @@ Page {
                 Label {
                     text: "Music Genres"
                 }    
-            }
-            
+            }            
         }
         
         Container {                        
             AlbumListView {}    
         }        
-    }
-    attachedObjects: [
-        ComponentDefinition {
-            id: artistPageDefinition
-            source: "ArtistPage.qml"
-        }
-    ]    
+    }        
 }

@@ -41,9 +41,7 @@ int AlbumsDataModel::getItemsCount(const QString &strAlbumName)
 
 int AlbumsDataModel::childCount(const QVariantList& indexPath)
 {
-    return 3;
  	QDir dir = QDir::home();
- 	qDebug() << "home dir ===================== " + dir.absolutePath() ;
 	if (dir.cd("albums")) {
 		QStringList listOfFiles = dir.entryList(QDir::Dirs);
 		return listOfFiles.count() - 2;
@@ -84,7 +82,9 @@ QVariant AlbumsDataModel::data(const QVariantList& indexPath)
 		QStringList listOfFiles = dir.entryList(QDir::Dirs);
 		listOfFiles.removeOne(".");
 		listOfFiles.removeOne("..");
-		data["albumName"] = listOfFiles.at(indexPath[0].toInt());
+//		data["albumName"] = listOfFiles.at(indexPath[0].toInt());
+//		data["itemsCount"] = getItemsCount(listOfFiles.at(indexPath[0].toInt()));
+		data["albumName"] = "teeeeeeeeeeeeeeeeeeeeeest";
 		data["itemsCount"] = getItemsCount(listOfFiles.at(indexPath[0].toInt()));
 	}
 	return data;
