@@ -7,8 +7,8 @@ NavigationPane {
         // page with a picture thumbnail
         Container {
             background: Color.Black
-            layout: DockLayout {
-            }
+            layout: DockLayout {}
+            
             Button {
                 horizontalAlignment: HorizontalAlignment.Center
                 verticalAlignment: VerticalAlignment.Center

@@ -43,4 +43,11 @@ Page {
             }        
         }
     }
+    attachedObjects: [
+        ComponentDefinition {
+            id: genrePageDefinition
+            source: "GenrePage.qml"
+        }
+    ]
+
 }
