@@ -6,6 +6,7 @@ Page {
     id: pgDetail
     
     property bool isPlaying: false
+    property bool isBubbleClicked : true
     
     paneProperties: NavigationPaneProperties {
         backButton: ActionItem {
@@ -39,15 +40,24 @@ Page {
                     id: webView
                     url: "local:///assets/web/test.html"
                     
-                    onMessageReceived: {
-                        if(!message.data.length) {
-                            console.log("javascript message received !!!!!!!!!!")
-                        }
-                        //titleLabel.setText("Data from JS: " + message.data);
-                        //push to needed page
-                        //	                   var page = genrePageDefinition.createObject();		                                        
-                        //	                   navigationPane.push(page);
-                    }
+//                    onMessageReceived: {
+//                        console.log("message.data ======== " + message.data)
+//                        if(message.data === "" || message.data == null) {
+//                            isBubbleClicked = false;
+//                            console.log("javascript message received !!!!!!!!!!")
+//                        } else {
+//                            isBubbleClicked = true;
+//                        }
+//                    }
+//                    onTouch: {
+//                        if(isBubbleClicked) {
+//	                        if(TouchType.Up == event.touchType) {
+//	                            var page = genrePageDefinition.createObject();		                                        
+//	                            navigationPane.push(page);
+//	                            OrientationSupport.supportedDisplayOrientation = SupportedDisplayOrientation.DisplayPortrait;
+//	                        }
+//                        }
+//                    }
                     
                     onMinContentScaleChanged: {
                         scrollView.scrollViewProperties.minContentScale = minContentScale;
@@ -57,11 +67,17 @@ Page {
                         scrollView.scrollViewProperties.maxContentScale = maxContentScale;
                     }            
                 }
+                
                 onTouch: {
-                    if(TouchType.Up == event.touchType) {
-                        var page = genrePageDefinition.createObject();		                                        
-                        navigationPane.push(page);
-                        OrientationSupport.supportedDisplayOrientation = SupportedDisplayOrientation.DisplayPortrait;
+                    console.log("onTouch !!!!!!!!!!!! ")
+                    if(pgDetail.isBubbleClicked) {
+                        console.log("onTouch 11111111 !!!!!!!!!!!! ")
+                        if(TouchType.Up == event.touchType) {
+                            console.log("onTouch 2222222222 !!!!!!!!!!!! ")
+                            var page = genrePageDefinition.createObject();		                                        
+                            navigationPane.push(page);
+                            OrientationSupport.supportedDisplayOrientation = SupportedDisplayOrientation.DisplayPortrait;
+                        }
                     }
                 }
             }

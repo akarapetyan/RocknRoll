@@ -11,6 +11,20 @@ ListView {
                 id: itemRoot
                 
 	            SongsContainer {}
+                contextActions: [
+                    ActionSet {
+                        title: ListItemData.name                        
+                        ActionItem {
+                            title: qsTr("Share")
+                            imageSource: "images/share.png"
+                            onTriggered: {
+                                var indexPath = itemRoot.ListItem.indexPath;
+                                itemRoot.ListItem.view.onShare(indexPath);
+                                itemRoot.ListItem.view.currentItemIndex = itemRoot.ListItem.indexInSection;                                
+                            }
+                        }
+                    } // end of ActionSet
+	            ]
 	            
 	            Container {
 	                ImageView {
