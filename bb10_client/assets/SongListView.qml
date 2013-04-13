@@ -10,7 +10,7 @@ ListView {
             Container {
                 id: itemRoot
                 
-	            AlbumContainer {}
+	            SongsContainer {}
 	            
 	            Container {
 	                ImageView {
@@ -25,7 +25,7 @@ ListView {
     attachedObjects: [
         ComponentDefinition {
             id: inAlbumPage
-            source: "ArtistPage.qml"
+            source: "WebPage.qml"
         }
     ]
     
@@ -52,5 +52,5 @@ ListView {
 //    function addAlbum(name) {
 //        console.log("... AlbumListView::addAlbum (" + name + ")...");
 //        _model.insert({ "albumName": name, "itemsCount" : 0 });
-//    }   
+//    }    
 }

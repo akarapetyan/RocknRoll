@@ -1,7 +1,7 @@
 import bb.cascades 1.0
 import bb.system 1.0
 
-Container {
+Container {    
     id: albumContainer
 	layout: DockLayout {}
 	background: Color.White

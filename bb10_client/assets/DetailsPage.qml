@@ -36,6 +36,9 @@ Page {
 	            url: "local:///assets/web/test.html"
 	            
 	            onMessageReceived: {
+	                if(!message.data.isNull()) {
+	                    console.log("javascript message received !!!!!!!!!!")
+	                }
 	                   //titleLabel.setText("Data from JS: " + message.data);
 	                   //push to needed page
 //	                   var page = genrePageDefinition.createObject();		                                        
