@@ -24,12 +24,18 @@ Page {
                 color: Color.Yellow
             }
         }
-        WebView {
-            id: webView
-            url: "local:///assets/web/test.html"
-            onMessageReceived: {
-                   titleLabel.setText("message.origin:" + message.origin + "message.data: " + message.data);
-            }    
+        ScrollView {
+            horizontalAlignment: HorizontalAlignment.Fill
+            verticalAlignment: VerticalAlignment.Fill
+            scrollViewProperties.pinchToZoomEnabled: true
+            scrollViewProperties.scrollMode: ScrollMode.Both
+	        WebView {
+	            id: webView
+	            url: "local:///assets/web/test.html"
+	            onMessageReceived: {
+	                   titleLabel.setText("Data from JS: " + message.data);
+	            }    
+            }
         }
     }
     
@@ -37,6 +43,7 @@ Page {
         ActionItem {
             title: "Play"
             imageSource: "assets:///rk_play.png"
+            ActionBar.placement: ActionBarPlacement.OnBar
             onTriggered: {
                 webView.postMessage("play");
             }
