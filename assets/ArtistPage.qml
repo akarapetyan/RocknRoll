@@ -13,9 +13,33 @@ Page {
             }
         }
     }
+    
     Container {
+        layout: StackLayout {}
         
+        Container {
+            layout: DockLayout {}
+            
+            verticalAlignment: VerticalAlignment.Top
+            horizontalAlignment: HorizontalAlignment.Fill
+            ImageView {  
+                imageSource: "images/header.png"
+            }
+            Container {
+                verticalAlignment: VerticalAlignment.Center
+                horizontalAlignment: HorizontalAlignment.Center
+                Label {
+                    text: "Music List"
+                }    
+            }
+            
+        }
+        
+        Container {                        
+            AlbumListView {}    
+        }        
     }
+    
     attachedObjects: [
         ComponentDefinition {
             id: webPageDefinition

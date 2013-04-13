@@ -25,6 +25,8 @@ Page {
             }
         }
         ScrollView {
+            id: scrollView
+            
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
             scrollViewProperties.pinchToZoomEnabled: true
@@ -34,7 +36,10 @@ Page {
 	            url: "local:///assets/web/test.html"
 	            
 	            onMessageReceived: {
-	                   titleLabel.setText("Data from JS: " + message.data);
+	                   //titleLabel.setText("Data from JS: " + message.data);
+	                   //push to needed page
+//	                   var page = genrePageDefinition.createObject();		                                        
+//	                   navigationPane.push(page);
                }
                
                onMinContentScaleChanged: {
@@ -45,12 +50,19 @@ Page {
                    scrollView.scrollViewProperties.maxContentScale = maxContentScale;
                }            
             }
+            onTouch: {
+                if(TouchType.Up == event.touchType) {
+                    var page = genrePageDefinition.createObject();		                                        
+                    navigationPane.push(page);
+                    OrientationSupport.supportedDisplayOrientation = SupportedDisplayOrientation.DisplayPortrait;
+                }
+            }
         }
         
         attachedObjects: [
             ComponentDefinition {
-            id: genrePageDefinition
-            source: "GenrePage.qml"
+                id: genrePageDefinition
+                source: "GenrePage.qml"
             }
         ]        
     }
@@ -58,7 +70,7 @@ Page {
     actions: [
         ActionItem {
             title: "Play"
-            imageSource: "assets:///rk_play.png"
+            imageSource: "images/rk_play.png"
             ActionBar.placement: ActionBarPlacement.OnBar
             onTriggered: {
                 webView.postMessage("play");

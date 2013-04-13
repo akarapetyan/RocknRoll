@@ -8,10 +8,12 @@ INCLUDEPATH +=  \
 
 SOURCES +=  \
     $$BASEDIR/src/RocknRoll.cpp \
-    $$BASEDIR/src/main.cpp
+    $$BASEDIR/src/main.cpp \
+    $$BASEDIR/src/albumsmodel.cpp
 
 HEADERS +=  \
-    $$BASEDIR/src/RocknRoll.hpp
+    $$BASEDIR/src/RocknRoll.hpp \
+    $$BASEDIR/src/albumsmodel.hpp
 
 CONFIG += precompile_header
 PRECOMPILED_HEADER = $$BASEDIR/precompiled.h
