@@ -14,8 +14,9 @@ Page {
         }
     }
     Container {
-        background: Color.White
+        background: Color.Black
         Label {
+            id: titleLabel
             text: qsTr("Hottness/Energy Graph")
             horizontalAlignment: HorizontalAlignment.Center
             textStyle {
@@ -28,26 +29,40 @@ Page {
             verticalAlignment: VerticalAlignment.Fill
             scrollViewProperties.pinchToZoomEnabled: true
             scrollViewProperties.scrollMode: ScrollMode.Both
-            
-            WebView {
-                id: webView
-                url: "local:///assets/web/test.html"
-                
-                onMinContentScaleChanged: {
-                    scrollView.scrollViewProperties.minContentScale = minContentScale;
-                }
-                
-                onMaxContentScaleChanged: {
-                    scrollView.scrollViewProperties.maxContentScale = maxContentScale;
-                }
-            }        
+	        WebView {
+	            id: webView
+	            url: "local:///assets/web/test.html"
+	            
+	            onMessageReceived: {
+	                   titleLabel.setText("Data from JS: " + message.data);
+               }
+               
+               onMinContentScaleChanged: {
+                   scrollView.scrollViewProperties.minContentScale = minContentScale;
+               }
+               
+               onMaxContentScaleChanged: {
+                   scrollView.scrollViewProperties.maxContentScale = maxContentScale;
+               }            
+            }
         }
-    }
-    attachedObjects: [
-        ComponentDefinition {
+        
+        attachedObjects: [
+            ComponentDefinition {
             id: genrePageDefinition
             source: "GenrePage.qml"
+            }
+        ]        
+    }
+    
+    actions: [
+        ActionItem {
+            title: "Play"
+            imageSource: "assets:///rk_play.png"
+            ActionBar.placement: ActionBarPlacement.OnBar
+            onTriggered: {
+                webView.postMessage("play");
+            }
         }
     ]
-
 }
