@@ -1,0 +1,83 @@
+<html>
+<head>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+	var i, l, editedData = [], step = 1;
+	var dummyData = [{year: 2000, gener: [{hottness: 0.2, popular: 0.2, name: 'classic'},{hottness: 0.3, popular: 0.3, name: 'rock'},{hottness: 0.4, popular: 0.4, name: 'Pop'},{hottness: 0.5, popular: 0.5, name: 'Rap'}]},
+	                 {year: 2001, gener: [{hottness: 0.2, popular: 0.3, name: 'classic'},{hottness: 0.3, popular: 0.4, name: 'rock'},{hottness: 0.4, popular: 0.5, name: 'Pop'},{hottness: 0.5, popular: 0.6, name: 'Rap'}]},
+	                 {year: 2002, gener: [{hottness: 0.2, popular: 0.4, name: 'classic'},{hottness: 0.3, popular: 0.5, name: 'rock'},{hottness: 0.4, popular: 0.6, name: 'Pop'},{hottness: 0.5, popular: 0.7, name: 'Rap'}]},
+	                 {year: 2003, gener: [{hottness: 0.2, popular: 0.5, name: 'classic'},{hottness: 0.3, popular: 0.6, name: 'rock'},{hottness: 0.4, popular: 0.7, name: 'Pop'},{hottness: 0.5, popular: 0.8, name: 'Rap'}]},
+	                 {year: 2004, gener: [{hottness: 0.2, popular: 0.6, name: 'classic'},{hottness: 0.3, popular: 0.7, name: 'rock'},{hottness: 0.4, popular: 0.8, name: 'Pop'},{hottness: 0.5, popular: 0.9, name: 'Rap'}]},
+	                 {year: 2005, gener: [{hottness: 0.2, popular: 0.7, name: 'classic'},{hottness: 0.3, popular: 0.8, name: 'rock'},{hottness: 0.4, popular: 0.9, name: 'Pop'},{hottness: 0.5, popular: 1, name: 'Rap'}]},];
+	
+	editedData.push([ 'ID', 'hottness', 'popular', 'Type', 'Size' ]);
+	for(i = 0, l = dummyData[0].gener.length; i < l; i++){
+		editedData.push([i + 1 + '', dummyData[0].gener[i].hottness, dummyData[0].gener[i].popular, dummyData[0].gener[i].name, 50]);
+	}
+	
+	
+	
+	function drawExample1() {		
+		
+		function playOneFrame(){			
+			if(step < dummyData[0].gener.length){
+				for ( var i = 0; i < data.getNumberOfRows(); i++) {
+					data.setValue(i, 1, dummyData[step].gener[i].hottness);
+					data.setValue(i, 2, dummyData[step].gener[i].popular);				
+				}				
+				chart.draw(data, options);
+			}
+			step++;
+		}
+		
+		var data = google.visualization.arrayToDataTable(editedData);
+
+		var options = {
+			title : 'Music Gener Over Years',
+			animation : {
+				duration : 500,
+				easing : 'out'
+			},
+			hAxis : {
+				title : 'hottness'
+			},
+			vAxis : {
+				title : 'popular'
+			},
+			bubble : {
+				textStyle : {
+					fontSize : 11
+				}
+			}
+		};
+		var button = document.getElementById('example1-b1');
+
+		//start
+		button.onclick = function() {
+			playOneFrame();			
+		}		
+
+		var button2 = document.getElementById('example1-b2');	
+
+		var chart = new google.visualization.BubbleChart(document
+				.getElementById('example1-visualization'));
+		chart.draw(data, options);
+		
+		google.visualization.events.addListener(chart, 'animationfinish', function(){			
+			playOneFrame();	
+		});
+		
+	}
+
+	google.load('visualization', '1.1', {
+		packages : [ 'corechart' ]
+	});
+	google.setOnLoadCallback(drawExample1);
+</script>
+</head>
+<body>
+	<input id="example1-b1" type="button" value="play"></input>	
+	
+	<div id="example1-visualization" style="width: 900px; height: 500px;"></div>
+</body>
+</html>

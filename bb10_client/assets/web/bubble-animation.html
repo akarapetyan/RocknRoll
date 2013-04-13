@@ -1,0 +1,75 @@
+<html>
+<head>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+	function drawExample1() {		
+		var data = google.visualization.arrayToDataTable([
+				[ 'ID', 'Prevalence', 'Year', 'Type', 'Popularity' ],
+				[ '1', Math.floor((Math.random()*40)+20), Math.floor((Math.random()*40)+20), '1 - Jazz', Math.floor((Math.random()*1000)+500) ],
+				[ '2', Math.floor((Math.random()*40)+20), Math.floor((Math.random()*40)+20), '2 - Rock', Math.floor((Math.random()*1000)+500) ],
+        [ '3', Math.floor((Math.random()*40)+20), Math.floor((Math.random()*40)+20), '3 - Pop', Math.floor((Math.random()*1000)+500) ],
+        [ '4', Math.floor((Math.random()*40)+20), Math.floor((Math.random()*40)+20), '4 - Country', Math.floor((Math.random()*1000)+500) ],
+        [ '5', Math.floor((Math.random()*40)+20), Math.floor((Math.random()*40)+20), '5 - Baroque', Math.floor((Math.random()*1000)+500) ],
+        [ '6', Math.floor((Math.random()*40)+20), Math.floor((Math.random()*40)+20), '6 - Metal', Math.floor((Math.random()*1000)+500) ]
+				]);
+
+		var options = {
+			title : 'BLA',
+			animation : {
+				duration : 500,
+				easing : 'out'
+			},
+			hAxis : {
+				title : 'Prevalence'
+			},
+			vAxis : {
+				title : 'Year'
+			},
+			bubble : {
+				textStyle : {
+					fontSize : 11
+				}
+			}
+		};
+		var button = document.getElementById('example1-b1');
+		
+		button.onclick = function() {		
+      for(var i = 0; i < data.getNumberOfRows(); i++){
+          data.setValue(i, 1, Math.floor((Math.random()*40)+20));
+          data.setValue(i, 2, Math.floor((Math.random()*40)+20));
+          data.setValue(i, 4, Math.floor((Math.random()*1000)+500));
+      }
+			chart.draw(data, options);
+		}
+    
+    var button2 = document.getElementById('example1-b2');
+		var input2 = document.getElementById('example1-b2-txt');
+    
+		button2.onclick = function() {		
+      if(input2.value!=''){
+          data.addRow([ (data.getNumberOfRows()+1)+"", Math.floor((Math.random()*40)+20), Math.floor((Math.random()*40)+20), (data.getNumberOfRows()+1) + " " + input2.value, Math.floor((Math.random()*1000)+500) ]);
+          chart.draw(data, options);
+      }
+		}
+		
+		
+		var chart = new google.visualization.BubbleChart(document
+				.getElementById('example1-visualization'));
+		chart.draw(data, options);
+	}
+	
+	
+
+	google.load('visualization', '1.1', {
+		packages : [ 'corechart' ]
+	});
+	google.setOnLoadCallback(drawExample1);
+</script>
+</head>
+<body>
+	<input id="example1-b1" type="button" value="Change Value"></input>
+  <input id="example1-b2-txt" type="text" value=""></input>
+  <input id="example1-b2" type="button" value="Add Row"></input>
+	<div id="example1-visualization" style="width: 900px; height: 500px;"></div>
+</body>
+</html>
