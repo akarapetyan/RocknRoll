@@ -4,7 +4,7 @@
 <context>
     <name>DetailsPage</name>
     <message>
-        <location filename="../assets/DetailsPage.qml" line="19"/>
+        <location filename="../assets/DetailsPage.qml" line="20"/>
         <source>Hottness/Energy Graph</source>
         <translation type="unfinished"></translation>
     </message>

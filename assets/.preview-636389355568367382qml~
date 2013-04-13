@@ -16,6 +16,7 @@ Page {
     Container {
         background: Color.Black
         Label {
+            id: titleLabel
             text: qsTr("Hottness/Energy Graph")
             horizontalAlignment: HorizontalAlignment.Center
             textStyle {
@@ -25,7 +26,20 @@ Page {
         }
         WebView {
             id: webView
-            url: "local:///assets/web/test.html"    
+            url: "local:///assets/web/test.html"
+            onMessageReceived: {
+                   titleLabel.setText("message.origin:" + message.origin + "message.data: " + message.data);
+            }    
         }
     }
+    
+    actions: [
+        ActionItem {
+            title: "Play"
+            imageSource: "assets:///rk_play.png"
+            onTriggered: {
+                webView.postMessage("play");
+            }
+        }
+    ]
 }
