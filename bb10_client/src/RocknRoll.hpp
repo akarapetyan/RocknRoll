@@ -17,6 +17,15 @@ class RocknRoll : public QObject
 public:
     RocknRoll(bb::cascades::Application *app);
     virtual ~RocknRoll() {}
+
+    void startNetworkManager();
+    void parseJSON();
+
+public slots:
+	void onArtistReply();
+
+signals:
+	void complete(QString info, bool success);
 };
 
 #endif /* RocknRoll_HPP_ */
