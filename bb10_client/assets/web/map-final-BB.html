@@ -161,16 +161,13 @@
 		chart.draw(data, options);
 		
 		google.visualization.events.addListener(chart, 'select', function(event){
-			/*var selected = chart.getSelection();
-			//var baseYear = dummyData[0].year;
-			/*genre : 'Rock',
-			popularity : 0.8,
-			Latitude : 42.73383,
-			Longitude : -84.59334*/
-			/*var result = {};
-		 	result.year = dummyData[step].year;
-		 	result.genre = dummyData[step].meta
-			navigator.cascades.postMessage(JSON.stringify(result));		*/
+			var selected = chart.getSelection();			
+			var result = {};
+		 	result.year = dummyData[step-1].year;
+		 	result.genre = dummyData[step-1].metadata[selected[0].row].genre;
+		 	result.Latitude = dummyData[step-1].metadata[selected[0].row].Latitude;
+		 	result.Longitude = dummyData[step-1].metadata[selected[0].row].Longitude;
+			navigator.cascades.postMessage(JSON.stringify(result));		
 		});
 		
 		var isFirstTime = true
