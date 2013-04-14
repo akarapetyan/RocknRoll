@@ -6,7 +6,6 @@ Page {
     id: pgDetail
     
     property bool isPlaying: false
-    property bool isBubbleClicked : true
     
     paneProperties: NavigationPaneProperties {
         backButton: ActionItem {
@@ -38,26 +37,18 @@ Page {
                 scrollViewProperties.scrollMode: ScrollMode.Both
                 WebView {
                     id: webView
-                    url: "local:///assets/web/test.html"
+                    url: "local:///assets/web/map-final.html"
                     
-//                    onMessageReceived: {
-//                        console.log("message.data ======== " + message.data)
-//                        if(message.data === "" || message.data == null) {
-//                            isBubbleClicked = false;
-//                            console.log("javascript message received !!!!!!!!!!")
-//                        } else {
-//                            isBubbleClicked = true;
-//                        }
-//                    }
-//                    onTouch: {
-//                        if(isBubbleClicked) {
-//	                        if(TouchType.Up == event.touchType) {
-//	                            var page = genrePageDefinition.createObject();		                                        
-//	                            navigationPane.push(page);
-//	                            OrientationSupport.supportedDisplayOrientation = SupportedDisplayOrientation.DisplayPortrait;
-//	                        }
-//                        }
-//                    }
+                    onMessageReceived: {
+                        console.log("message.data ======== " + message.data)
+                        if(message.data === "" || message.data == null) {                     
+                            console.log("javascript message received !!!!!!!!!!")
+                        } else {
+                            var page = genrePageDefinition.createObject();		                                        
+                            navigationPane.push(page);
+                            OrientationSupport.supportedDisplayOrientation = SupportedDisplayOrientation.DisplayPortrait;                     
+                        }
+                    }
                     
                     onMinContentScaleChanged: {
                         scrollView.scrollViewProperties.minContentScale = minContentScale;
@@ -66,19 +57,6 @@ Page {
                     onMaxContentScaleChanged: {
                         scrollView.scrollViewProperties.maxContentScale = maxContentScale;
                     }            
-                }
-                
-                onTouch: {
-                    console.log("onTouch !!!!!!!!!!!! ")
-                    if(pgDetail.isBubbleClicked) {
-                        console.log("onTouch 11111111 !!!!!!!!!!!! ")
-                        if(TouchType.Up == event.touchType) {
-                            console.log("onTouch 2222222222 !!!!!!!!!!!! ")
-                            var page = genrePageDefinition.createObject();		                                        
-                            navigationPane.push(page);
-                            OrientationSupport.supportedDisplayOrientation = SupportedDisplayOrientation.DisplayPortrait;
-                        }
-                    }
                 }
             }
                             

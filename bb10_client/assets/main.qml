@@ -19,6 +19,7 @@ NavigationPane {
                     var page = getSecondPage();
                     console.debug("pushing detail " + page)
                     navigationPane.push(page);
+                    OrientationSupport.supportedDisplayOrientation = SupportedDisplayOrientation.DisplayLandscape;
                 }
                 property Page secondPage
                 function getSecondPage() {
@@ -44,7 +45,7 @@ NavigationPane {
     onCreationCompleted: {
         // enable layout to adapt to the device rotation
         // don't forget to enable screen rotation in bar-bescriptor.xml (Application->Orientation->Auto-orient)
-        OrientationSupport.supportedDisplayOrientation = SupportedDisplayOrientation.All;
+        //OrientationSupport.supportedDisplayOrientation = SupportedDisplayOrientation.All;
         
         Application.cover = appCover.createObject();
     }    

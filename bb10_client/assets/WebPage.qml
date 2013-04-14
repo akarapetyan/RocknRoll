@@ -23,17 +23,7 @@ Page {
 	            ImageView {  
 	                imageSource: "images/header.png"
 	            }
-                Container {
-                    verticalAlignment: VerticalAlignment.Top
-                    horizontalAlignment: HorizontalAlignment.Right
-                    ImageView {  
-                        imageSource: "images/close_demo.png"
-                    }
-                    onTouch: {
-                        console.log("close the demo")
-                        
-                    } 
-                }
+	                            
 	            Container {
 	                verticalAlignment: VerticalAlignment.Center
 	                horizontalAlignment: HorizontalAlignment.Center
