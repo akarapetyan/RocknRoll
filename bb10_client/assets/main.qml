@@ -1,52 +1,126 @@
 // Navigation pane project template
 import bb.cascades 1.0
+//import QTimer 1.0
 
 NavigationPane {
     id: navigationPane
-    Page {
-        
-        Container {
-            background: Color.Black
-            layout: DockLayout {}
-                        
-            Button {
-                horizontalAlignment: HorizontalAlignment.Center
-                verticalAlignment: VerticalAlignment.Center
-                text: qsTr("Show detail")
-                imageSource: "asset:///images/picture1thumb.png"
-                onClicked: {
-                    // show detail page when the button is clicked
-                    var page = getSecondPage();
-                    console.debug("pushing detail " + page)
-                    navigationPane.push(page);
-                    OrientationSupport.supportedDisplayOrientation = SupportedDisplayOrientation.DisplayLandscape;
-                }
-                property Page secondPage
-                function getSecondPage() {
-                    if (! secondPage) {
-                        secondPage = secondPageDefinition.createObject();
-                    }
-                    return secondPage;
-                }
-                attachedObjects: [
-                    ComponentDefinition {
-                        id: secondPageDefinition
-                        source: "DetailsPage.qml"
-                    }, 
-                    ComponentDefinition {
-                        id: appCover
-                        source: "AppCover.qml"
-                    }
-                ]
-            }
-        }        
-    }
     
+    property bool enableToClick: true
+    Page {
+        Container {
+            layout: DockLayout {}
+            
+            background: back.imagePaint
+            onTouch: {
+                if (event.touchType == TouchType.Up) {
+                    if(enableToClick) { 
+                        var page = detailPageDefinition.createObject();                        
+                        OrientationSupport.supportedDisplayOrientation = SupportedDisplayOrientation.DisplayLandscape;
+                        navigationPane.push(page);                        
+                    }
+                }
+            }
+            
+            attachedObjects: [
+                ImagePaintDefinition {
+                    id: back
+                    imageSource: "images/splash.png"
+                },
+//                QTimer {
+//                    id: image1Timer
+//                    singleShot: true
+//                    interval: 1000
+//                    onTimeout: {                        
+//                        image1Animation.play();                        
+//                    }
+//                },
+//                QTimer {
+//                    id: image2Timer
+//                    singleShot: true
+//                    interval: 1000
+//                    onTimeout: {                        
+//                        image2Animation.play();                        
+//                    }
+//                },
+                ComponentDefinition {
+                    id: appCover
+                    source: "AppCover.qml"
+                },
+                ComponentDefinition {
+                    id: detailPageDefinition
+                    source: "DetailsPage.qml"
+                }
+            ]
+            
+            Container {
+                layout: AbsoluteLayout {}
+                horizontalAlignment: HorizontalAlignment.Left
+                ImageView {
+                    id: image1
+                    imageSource: "images/theArt.png"
+                    layoutProperties: AbsoluteLayoutProperties {
+                        positionX: 768/2 - 350
+                        positionY: 1280/2 - 180                   
+                    }
+                    
+//                    translationX: 50
+//                    translationY: 0 
+                    
+//                    animations: [
+//                        TranslateTransition {
+//                            id: image1Animation
+//                            toY: -200                        
+//                            //easingCurve: StockCurve.ExponentialIn
+//                            duration: 1000
+//                            
+//                            onEnded: {
+//                                //image2Timer.start();
+//                            }     	                        
+//                        }
+//                    ]
+                }
+            
+            }
+            
+            Container {
+                layout: AbsoluteLayout {}
+                horizontalAlignment: HorizontalAlignment.Right                
+                layoutProperties: AbsoluteLayoutProperties {
+                    positionX: 768/2 + 180
+                    positionY: 1280/2 + 220                  
+                }
+                ImageView {
+                    id: image2
+                    imageSource: "images/off.png"
+                    
+                    
+                    //                translationX: 768/2 + 40
+                    //                translationY: 0                    
+                    
+                    //                animations: [
+                    //                    TranslateTransition {
+                    //                        id: image2Animation
+                    //                        toY: 1280/2 + 30                     
+                    //                        //easingCurve: StockCurve.ExponentialIn                            
+                    //                        duration: 1000
+                    //                        
+                    //                        onEnded: {
+                    //                            enableToClick = true;                            
+                    //                        }     	                        
+                    //                    }
+                    //                ]
+                }
+            
+            }
+
+            onCreationCompleted: {
+                //image1Timer.start();
+            }
+        }
+    }
     onCreationCompleted: {
-        // enable layout to adapt to the device rotation
-        // don't forget to enable screen rotation in bar-bescriptor.xml (Application->Orientation->Auto-orient)
-        //OrientationSupport.supportedDisplayOrientation = SupportedDisplayOrientation.All;
-        
         Application.cover = appCover.createObject();
-    }    
+    }        
 }
+
+

@@ -1,5 +1,4 @@
 import bb.cascades 1.0
-import bb.system 1.0
 
 ListView {
     property int page_type: -1
@@ -11,24 +10,13 @@ ListView {
                 id: itemRoot
                 
 	            SongsContainer {}
-                contextActions: [
-                    ActionSet {
-                        title: ListItemData.name                        
-                        ActionItem {
-                            title: qsTr("Share")
-                            imageSource: "images/share.png"
-                            onTriggered: {
-                                var indexPath = itemRoot.ListItem.indexPath;
-                                itemRoot.ListItem.view.onShare(indexPath);
-                                itemRoot.ListItem.view.currentItemIndex = itemRoot.ListItem.indexInSection;                                
-                            }
-                        }
-                    } // end of ActionSet
-	            ]
-	            
+                	            
 	            Container {
+	                layout: DockLayout {}	                
 	                ImageView {
-			            imageSource: "images/sf_line.png"
+	                    minWidth: 768
+	                    horizontalAlignment: HorizontalAlignment.Fill
+			            imageSource: "images/separator.png"
 			            scalingMethod: ScalingMethod.None
 			        }
 			    }

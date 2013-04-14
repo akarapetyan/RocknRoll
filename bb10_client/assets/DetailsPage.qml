@@ -11,6 +11,7 @@ Page {
         backButton: ActionItem {
             onTriggered: {                
                 isPlaying = false;
+                OrientationSupport.supportedDisplayOrientation = SupportedDisplayOrientation.DisplayPortrait;
                 navigationPane.pop()                
             }
         }
@@ -37,7 +38,7 @@ Page {
                 scrollViewProperties.scrollMode: ScrollMode.Both
                 WebView {
                     id: webView
-                    url: "local:///assets/web/map-final.html"
+                    url: "local:///assets/web/test.html"
                     
                     onMessageReceived: {
                         console.log("message.data ======== " + message.data)

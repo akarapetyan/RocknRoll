@@ -1,5 +1,4 @@
 import bb.cascades 1.0
-import bb.system 1.0
 
 ListView {
     property int page_type: -1
@@ -13,8 +12,11 @@ ListView {
 	            AlbumContainer {}
 	            
 	            Container {
+	                layout: DockLayout {}	                
 	                ImageView {
-			            imageSource: "images/sf_line.png"
+	                    minWidth: 768
+	                    horizontalAlignment: HorizontalAlignment.Fill
+			            imageSource: "images/separator.png"
 			            scalingMethod: ScalingMethod.None
 			        }
 			    }

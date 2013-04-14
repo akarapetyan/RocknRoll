@@ -23,7 +23,7 @@ Page {
             verticalAlignment: VerticalAlignment.Top
             horizontalAlignment: HorizontalAlignment.Fill
             ImageView {  
-                imageSource: "images/header.png"
+                imageSource: "images/header2.png"
             }
             Container {
                 verticalAlignment: VerticalAlignment.Center
