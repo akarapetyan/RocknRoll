@@ -48,7 +48,7 @@ RocknRoll::RocknRoll(bb::cascades::Application *app)
     //parseJSON();
 }
 
-void RocknRoll::parseJSON(){
+void RocknRoll::parseJSON() {
 	GroupDataModel *model = new GroupDataModel(QStringList() << "artist" << "song" << "genre" << "year");
 
 	JsonDataAccess jda;
@@ -60,8 +60,7 @@ void RocknRoll::parseJSON(){
 	listView->setDataModel(model);
 }
 
-void RocknRoll::startNetworkManager()
-{
+void RocknRoll::startNetworkManager() {
 	QNetworkAccessManager* nam = new QNetworkAccessManager();
 	if(!nam)
 	{
@@ -75,7 +74,8 @@ void RocknRoll::startNetworkManager()
 	QNetworkRequest req(url);
 
 	QNetworkReply* ipReply = nam->get(req);
-	connect(ipReply, SIGNAL(finished(QNetworkReply*)), this, SLOT(onArtistReply(QNetworkReply*)));
+	//bool res = connect(ipReply, SIGNAL(finished(QNetworkReply*)), this, SLOT(onArtistReply(QNetworkReply*)));
+	//Q_ASSERT(res);
 }
 
 void RocknRoll::onArtistReply(QNetworkReply* reply)
@@ -86,27 +86,29 @@ void RocknRoll::onArtistReply(QNetworkReply* reply)
 	{
 		if(reply->error() == QNetworkReply::NoError)
 		{
-			//int available = reply->bytesAvailable();
+			int available = reply->bytesAvailable();
 			QString jString = reply->readAll();
+			qDebug() << "jString ================= " << jString;
 			JsonDataAccess jda;
 			//QVariantList list = jda.loadFromBuffer(jString)->toValue<QVariantList>();
 			QVariantList list = jda.loadFromBuffer(jString).value<QVariantList>();
-			/*if (available > 0)
-			{
-				int bufSize = sizeof(char) * available + sizeof(char);
-				QByteArray buffer(bufSize, 0);
-				int read = reply->read(buffer.data(), available);
-				response = QString(buffer);
-				//QJsonDocument jdoc = response.toJson();
-				//qDebug() << "****** " << response << " ******" << endl;
-				//JsonDataAccess jda;
-				//QVariant list = jda.load("/bb10_client/dummy.json");
-				//QVariant jdoc = jda.loadFromBuffer(response);
-				//QList<QVariant> list = jdoc.toList();
-				//qDebug() << "null jdoc: " << jdoc.isNull() << endl;
-				//qDebug() << "empty jdoc: " << jdoc.isEmpty() << endl;
-				success = true;
-			}*/
+			qDebug() <<"lisssssssssssssssssssssssssssssssst " << list;
+//			if (available > 0)
+//			{
+//				int bufSize = sizeof(char) * available + sizeof(char);
+//				QByteArray buffer(bufSize, 0);
+//				int read = reply->read(buffer.data(), available);
+//				response = QString(buffer);
+//				QJsonDocument jdoc = response.toJson();
+//				qDebug() << "****** " << response << " ******" << endl;
+//				JsonDataAccess jda;
+//				QVariant list = jda.load("/bb10_client/dummy.json");
+//				QVariant jdoc = jda.loadFromBuffer(response);
+//				QList<QVariant> list = jdoc.toList();
+//				qDebug() << "null jdoc: " << jdoc.isNull() << endl;
+//				qDebug() << "empty jdoc: " << jdoc.isEmpty() << endl;
+//				success = true;
+//			}
 		}
 		else
 		{

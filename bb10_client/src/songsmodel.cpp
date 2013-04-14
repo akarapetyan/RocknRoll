@@ -41,7 +41,6 @@ int SongsDataModel::getItemsCount(const QString &strAlbumName)
 
 int SongsDataModel::childCount(const QVariantList& indexPath)
 {
-    return 125;
  	QDir dir = QDir::home();
 	if (dir.cd("songs")) {
 		QStringList listOfFiles = dir.entryList(QDir::Dirs);

@@ -4,9 +4,10 @@ import bb.cascades 1.0
 
 NavigationPane {
     id: navigationPane
+    peekEnabled: false
     
     property bool enableToClick: true
-    Page {
+    Page {        
         Container {
             layout: DockLayout {}
             

@@ -3,7 +3,7 @@ import bb.cascades 1.0
 
 Page {
     // page with a picture detail
-    id: pgDetail
+    id: pgDetail    
     
     property bool isPlaying: false
     
@@ -39,8 +39,12 @@ Page {
                 scrollViewProperties.pinchToZoomEnabled: true
                 scrollViewProperties.scrollMode: ScrollMode.Both
                 WebView {
+                    minWidth: 1280
+                    maxWidth: 1280
                     id: webView
-                    url: "local:///assets/web/map-final.html"
+                    //url: "local:///assets/web/map-final.html"
+                    url: "local:///assets/web/map-final-BB.html"
+                    
                     
                     onMessageReceived: {
                         console.log("message.data ======== " + message.data)
@@ -91,22 +95,23 @@ Page {
                 if (isPlaying) {
                     startAnimation();                    
                     isPlaying = false;
-                    imageSource = "images/play.png";
+                    imageSource = "images/pause.png";
                 } else {
                     resumeAnimation();
                     isPlaying = true;
-                    imageSource = "images/pause.png";
-                }
-                webView.postMessage("play");
+                    imageSource = "images/play.png";
+                }                
             }
         }
     ]
     
     function startAnimation() {
         console.log("startAnimation !!!!!!!!!!!!!")
+        webView.postMessage("play");
     }
     
     function resumeAnimation() {
         console.log("resumeAnimation !!!!!!!!!!!!!")
+        webView.postMessage("pause");
     }
 }
