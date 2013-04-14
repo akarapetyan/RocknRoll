@@ -1,0 +1,105 @@
+<html>
+<head>
+<script type='text/javascript' src='https://www.google.com/jsapi'></script>
+<script type='text/javascript' src='js/jquery.min.js'></script>
+<script type='text/javascript'>
+	var i, l, editedData = [], step = 1,dummyData;
+
+	$.getJSON("http://172.24.20.85/index.php/artists/artists_by_year/2008", function(data) {
+		dummyData = [].push(data);
+		doOnLoad();
+	});
+	
+	
+
+	function doOnLoad() {
+		google.load('visualization', '1', {
+			'packages' : [ 'geochart' ]
+		});
+		google.setOnLoadCallback(drawMarkersMap);
+		editedData.push([ 'Latitude', 'Longitude', 'popularity' ]);
+		for (i = 0, l = dummyData[0].metadata.length; i < l; i++) {
+			var latitude = parseFloat(dummyData[0].metadata[i].Latitude);
+			var longitude = parseFloat(dummyData[0].metadata[i].Longitude);
+			var popularity = parseFloat(dummyData[0].metadata[i].popularity);
+
+			editedData.push([ latitude, longitude, popularity ]);
+		}
+
+		var playOneFrame, timer;
+
+		function drawMarkersMap() {
+			playOneFrame = function() {
+				if (step < dummyData.length) {
+					for ( var i = 0; i < data.getNumberOfRows(); i++) {
+						data.setValue(i, 2,
+								dummyData[step].metadata[i].popularity);
+					}
+					chart.draw(data, options);
+				} else {
+					clearTimeout(timer);
+				}
+				step++;
+			}
+
+			var data = google.visualization.arrayToDataTable(editedData);
+
+			var options = {
+				datalessRegionColor : '3EAAED',
+				backgroundColor : '2F0733',
+				displayMode : 'markers',
+				colorAxis : {
+					minValue : 0,
+					colors : [ '#FF0000', '#0000FF', '#00FF00' ]
+				}
+			};
+
+			var chart = new google.visualization.GeoChart(document
+					.getElementById('chart_div'));
+			chart.draw(data, options);
+
+			google.visualization.events.addListener(chart, 'select', function(
+					event) {
+				var selected = chart.getSelection();
+				var result = {};
+			});
+
+			var isFirstTime = true
+			google.visualization.events.addListener(chart, 'ready', function(
+					event) {
+				if (isFirstTime) {
+					$('svg > g > g:nth-last-child(3)').remove();
+					isFirstTime = false;
+				}
+			});
+
+			$('#example1-b1').click(function() {
+				play();
+			});
+
+			$('#example1-b2').click(function() {
+				pause();
+			});
+
+		}
+		;
+
+		function play() {
+			playOneFrame();
+			timer = setInterval(function() {
+				playOneFrame();
+			}, 1000);
+		}
+
+		function pause() {
+			clearTimeout(timer);
+		}
+	}
+</script>
+</head>
+<body>
+	<input id="example1-b1" type="button" value="Play"></input>
+	<input id="example1-b2" type="button" value="Pause"></input>
+	<div id="chart_div" style="width: 900px; height: 500px;"></div>
+</body>
+</html>

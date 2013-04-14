@@ -1,0 +1,193 @@
+<html>
+<head>
+<script type='text/javascript' src='https://www.google.com/jsapi'></script>
+<script type='text/javascript' src='js/jquery.min.js'></script>
+<script type='text/javascript'>
+	var i, l, editedData = [], step = 1;
+	
+	google.load('visualization', '1', {
+		'packages' : [ 'geochart' ]
+	});
+	google.setOnLoadCallback(drawMarkersMap);
+
+	var dummyData = [ {
+		year : 2000,
+		metadata : [ {
+			popularity : 0.8,
+			Latitude : 42.73383,
+			Longitude : -84.59334
+		}, {
+			popularity : 0.1,
+			Latitude : 82.73383,
+			Longitude : -44.59334
+		}, {
+			popularity : 0.1,
+			Latitude : 32.73383,
+			Longitude : -44.59334
+		}]
+	}, {
+		year : 2001,
+		metadata : [ {
+			popularity : 0.1,
+			Latitude : 42.73383,
+			Longitude : -84.59334
+		}, {
+			popularity : 0.2,
+			Latitude : 82.73383,
+			Longitude : -44.59334
+		}, {
+			popularity : 0.4,
+			Latitude : 32.73383,
+			Longitude : -44.59334
+		}]
+	}, {
+		year : 2002,
+		metadata : [ {
+			popularity : 0.4,
+			Latitude : 42.73383,
+			Longitude : -84.59334
+		}, {
+			popularity : 0.5,
+			Latitude : 82.73383,
+			Longitude : -44.59334
+		}, {
+			popularity : 0.6,
+			Latitude : 32.73383,
+			Longitude : -44.59334
+		}]
+	}, {
+		year : 2003,
+		metadata : [ {
+			popularity : 0.5,
+			Latitude : 42.73383,
+			Longitude : -84.59334
+		}, {
+			popularity : 0.6,
+			Latitude : 82.73383,
+			Longitude : -44.59334
+		}, {
+			popularity : 0.4,
+			Latitude : 32.73383,
+			Longitude : -44.59334
+		}]
+	}, {
+		year : 2004,
+		metadata : [ {
+			popularity : 0.6,
+			Latitude : 42.73383,
+			Longitude : -84.59334
+		}, {
+			popularity : 0.7,
+			Latitude : 82.73383,
+			Longitude : -44.59334
+		}, {
+			popularity : 0.9,
+			Latitude : 32.73383,
+			Longitude : -44.59334
+		}]
+	}, {
+		year : 2005,
+		metadata : [ {
+			gener : 'Rock',
+			popularity : 0.8,
+			Latitude : 42.73383,
+			Longitude : -84.59334
+		}, {
+			gener : 'Rock',
+			popularity : 0.8,
+			Latitude : 82.73383,
+			Longitude : -44.59334
+		}, {
+			popularity : 0.7,
+			Latitude : 82.73383,
+			Longitude : -44.59334
+		}]
+	} ];
+	
+	editedData.push([ 'Latitude', 'Longitude', 'popularity' ]);
+	for(i = 0, l = dummyData[0].gener.length; i < l; i++){
+		editedData.push([dummyData[0].gener[i].Latitude, dummyData[0].gener[i].Longitude, dummyData[0].gener[i].popularity]);
+	}
+	
+	var playOneFrame, timer;
+
+	function drawMarkersMap() {		
+		playOneFrame = function() {
+			if (step < dummyData.length) {				
+				for ( var i = 0; i < data.getNumberOfRows(); i++) {
+					data.setValue(i, 2, dummyData[step].gener[i].popularity);					
+				}
+				chart.draw(data, options);
+			} else {
+				clearTimeout(timer);
+			}
+			step++;
+		}
+
+		var data = google.visualization.arrayToDataTable(editedData);
+
+		var options = {
+			datalessRegionColor: '3EAAED',
+			backgroundColor: '2F0733',
+			displayMode: 'markers',			
+			colorAxis : {
+				minValue : 0,
+				colors : [ '#FF0000', '#0000FF', '#00FF00' ]
+			}
+		};
+
+		var chart = new google.visualization.GeoChart(document
+				.getElementById('chart_div'));
+		chart.draw(data, options);
+		
+		google.visualization.events.addListener(chart, 'select', function(event){
+			/*var selected = chart.getSelection();
+			//var baseYear = dummyData[0].year;
+			var result = {};
+		 	result.year = dummyData[step].gener
+			navigator.cascades.postMessage(JSON.stringify(result));		*/
+		});
+		
+		var isFirstTime = true
+		google.visualization.events.addListener(chart, 'ready', function(event){
+			if(isFirstTime){
+				$('svg > g > g:nth-last-child(3)').remove();
+				isFirstTime = false;
+			}
+		});
+		
+		$('#example1-b1').click(function() {
+			play();
+		});
+		
+		$('#example1-b2').click(function() {
+			pause();
+		});	
+		
+	};
+	
+	function play(){
+		playOneFrame();
+		timer = setInterval(function(){playOneFrame();},1000);
+	}
+	
+	function pause(){
+		clearTimeout(timer);
+	}
+	
+	
+	navigator.cascades.onmessage = function onmessage(message) {
+		switch(message){
+		case "play":
+			play();
+			break;
+		case "pause":
+			pause();
+			break;
+		}		
+	}	
+</script>
+</head>
+<body>
+</body>
+</html>
