@@ -3,14 +3,28 @@ import bb.system 1.0
 
 ListView {
     property int page_type: -1
-    dataModel: _model1
+    dataModel: _model2
     listItemComponents: [
         ListItemComponent {
             type: "item"
             Container {
                 id: itemRoot
                 
-	            AlbumContainer {}
+	            SongsContainer {}
+                contextActions: [
+                    ActionSet {
+                        title: ListItemData.name                        
+                        ActionItem {
+                            title: qsTr("Share")
+                            imageSource: "images/share.png"
+                            onTriggered: {
+                                var indexPath = itemRoot.ListItem.indexPath;
+                                itemRoot.ListItem.view.onShare(indexPath);
+                                itemRoot.ListItem.view.currentItemIndex = itemRoot.ListItem.indexInSection;                                
+                            }
+                        }
+                    } // end of ActionSet
+	            ]
 	            
 	            Container {
 	                ImageView {
@@ -25,7 +39,7 @@ ListView {
     attachedObjects: [
         ComponentDefinition {
             id: inAlbumPage
-            source: "ArtistPage.qml"
+            source: "WebPage.qml"
         }
     ]
     
@@ -52,5 +66,5 @@ ListView {
 //    function addAlbum(name) {
 //        console.log("... AlbumListView::addAlbum (" + name + ")...");
 //        _model.insert({ "albumName": name, "itemsCount" : 0 });
-//    }   
+//    }    
 }

@@ -22,7 +22,7 @@ public:
     void parseJSON();
 
 public slots:
-	void onArtistReply();
+	void onArtistReply(QNetworkReply*);
 
 signals:
 	void complete(QString info, bool success);

@@ -4,6 +4,7 @@
 #include <bb/cascades/Application>
 #include <bb/cascades/QmlDocument>
 #include <bb/cascades/AbstractPane>
+#include <bb/cascades/SceneCover>
 #include <bb/cascades/ListView>
 #include <QNetworkAccessManager>
 #include <QUrl>
@@ -13,6 +14,7 @@
 #include <bb/data/JsonDataAccess>
 
 #include "albumsmodel.hpp"
+#include "songsmodel.hpp"
 
 using namespace bb::cascades;
 using namespace bb::data;
@@ -24,8 +26,13 @@ RocknRoll::RocknRoll(bb::cascades::Application *app)
     // set parent to created document to ensure it exists for the whole application lifetime
     QmlDocument *qml = QmlDocument::create("asset:///main.qml").parent(this);
 
-    AlbumsDataModel *pDataModel = new AlbumsDataModel(this);
-    qml->setContextProperty("_model", pDataModel);
+    AlbumsDataModel *p1DataModel = new AlbumsDataModel(this);
+    SongsDataModel *p2DataModel = new SongsDataModel(this);
+    qml->setContextProperty("_model1", p1DataModel);
+    qml->setContextProperty("_model2", p2DataModel);
+
+    qmlRegisterType<SceneCover>("bb.cascades", 1, 0, "SceneCover");
+    qmlRegisterUncreatableType<AbstractCover>("bb.cascades", 1, 0, "AbstractCover", "An AbstractCover cannot be created.");
 
     // create root object for the UI
     AbstractPane *root = qml->createRootObject<AbstractPane>();
@@ -64,21 +71,22 @@ void RocknRoll::startNetworkManager()
 	QNetworkRequest req(url);
 
 	QNetworkReply* ipReply = nam->get(req);
-	connect(ipReply, SIGNAL(finished()), this, SLOT(onArtistReply()));
+	connect(ipReply, SIGNAL(finished(QNetworkReply*)), this, SLOT(onArtistReply(QNetworkReply*)));
 }
 
-void RocknRoll::onArtistReply()
+void RocknRoll::onArtistReply(QNetworkReply* reply)
 {
-	QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
 	QString response;
 	bool success = false;
 	if(reply)
 	{
 		if(reply->error() == QNetworkReply::NoError)
 		{
-			int available = reply->bytesAvailable();
-
-			if (available > 0)
+			//int available = reply->bytesAvailable();
+			QString jString = reply->readAll();
+			JsonDataAccess jda;
+			QVariantList list = jda.loadFromBuffer(jString)->toValue<QVariantList>();
+			/*if (available > 0)
 			{
 				int bufSize = sizeof(char) * available + sizeof(char);
 				QByteArray buffer(bufSize, 0);
@@ -93,7 +101,7 @@ void RocknRoll::onArtistReply()
 				//qDebug() << "null jdoc: " << jdoc.isNull() << endl;
 				//qDebug() << "empty jdoc: " << jdoc.isEmpty() << endl;
 				success = true;
-			}
+			}*/
 		}
 		else
 		{

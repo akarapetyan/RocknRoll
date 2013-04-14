@@ -59,8 +59,7 @@
     <!-- <authorId>ABC1234YjsnUk235h</authorId> -->
    
     <initialWindow>
-        <aspectRatio>landscape</aspectRatio>
-        <autoOrients>false</autoOrients>
+        <autoOrients>true</autoOrients>
         <systemChrome>none</systemChrome>
         <transparent>false</transparent>
     </initialWindow>

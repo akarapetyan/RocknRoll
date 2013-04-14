@@ -4,11 +4,11 @@ import bb.cascades 1.0
 NavigationPane {
     id: navigationPane
     Page {
-        // page with a picture thumbnail
+        
         Container {
             background: Color.Black
             layout: DockLayout {}
-            
+                        
             Button {
                 horizontalAlignment: HorizontalAlignment.Center
                 verticalAlignment: VerticalAlignment.Center
@@ -19,6 +19,7 @@ NavigationPane {
                     var page = getSecondPage();
                     console.debug("pushing detail " + page)
                     navigationPane.push(page);
+                    OrientationSupport.supportedDisplayOrientation = SupportedDisplayOrientation.DisplayLandscape;
                 }
                 property Page secondPage
                 function getSecondPage() {
@@ -31,18 +32,21 @@ NavigationPane {
                     ComponentDefinition {
                         id: secondPageDefinition
                         source: "DetailsPage.qml"
+                    }, 
+                    ComponentDefinition {
+                        id: appCover
+                        source: "AppCover.qml"
                     }
                 ]
             }
-        }
+        }        
     }
+    
     onCreationCompleted: {
-        // this slot is called when declarative scene is created
-        // write post creation initialization here
-        console.log("NavigationPane - onCreationCompleted()");
-
         // enable layout to adapt to the device rotation
         // don't forget to enable screen rotation in bar-bescriptor.xml (Application->Orientation->Auto-orient)
-        OrientationSupport.supportedDisplayOrientation = SupportedDisplayOrientation.All;
-    }
+        //OrientationSupport.supportedDisplayOrientation = SupportedDisplayOrientation.All;
+        
+        Application.cover = appCover.createObject();
+    }    
 }

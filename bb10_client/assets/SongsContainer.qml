@@ -1,7 +1,7 @@
 import bb.cascades 1.0
 import bb.system 1.0
 
-Container {
+Container {    
     id: albumContainer
 	layout: DockLayout {}
 	background: Color.White
@@ -108,7 +108,7 @@ Container {
                     id: dataYesNoDialog
                     body: "All data will be deleted from selected album. Are you sure you want to proceed?"
                     onFinished:{
-	                    if (dataYesNoDialog.result == SystemUiResult.ConfirmButtonSelection) {
+	                    if (dataYesNoDialog.result == SystemUiResult.ConfirmButtonSelection){
 	                        // Get item which user want to delete
 	                        // app.dleteItem(); // remove from list on C++ side then update UI
 	                        deleteToast.show(); 

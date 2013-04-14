@@ -23,6 +23,7 @@ Page {
 	            ImageView {  
 	                imageSource: "images/header.png"
 	            }
+	                            
 	            Container {
 	                verticalAlignment: VerticalAlignment.Center
 	                horizontalAlignment: HorizontalAlignment.Center

@@ -4,12 +4,14 @@ import bb.cascades 1.0
 Page {
     // page with a picture detail
     id: pgDetail
+    
+    property bool isPlaying: false
+    
     paneProperties: NavigationPaneProperties {
         backButton: ActionItem {
-            onTriggered: {
-                // define what happens when back button is pressed here
-                // in this case is closed the detail page
-                navigationPane.pop()
+            onTriggered: {                
+                isPlaying = false;
+                navigationPane.pop()                
             }
         }
     }
@@ -24,61 +26,84 @@ Page {
                 color: Color.Yellow
             }
         }
-        ScrollView {
-            id: scrollView
-            
-            horizontalAlignment: HorizontalAlignment.Fill
-            verticalAlignment: VerticalAlignment.Fill
-            scrollViewProperties.pinchToZoomEnabled: true
-            scrollViewProperties.scrollMode: ScrollMode.Both
-	        WebView {
-	            id: webView
-	            url: "local:///assets/web/test.html"
-	            
-	            onMessageReceived: {
-	                   //titleLabel.setText("Data from JS: " + message.data);
-	                   //push to needed page
-//	                   var page = genrePageDefinition.createObject();		                                        
-//	                   navigationPane.push(page);
-               }
-               
-               onMinContentScaleChanged: {
-                   scrollView.scrollViewProperties.minContentScale = minContentScale;
-               }
-               
-               onMaxContentScaleChanged: {
-                   scrollView.scrollViewProperties.maxContentScale = maxContentScale;
-               }            
-            }
-            onTouch: {
-                if(TouchType.Up == event.touchType) {
-                    var page = webPageDefinition.createObject();		                                        
-                    navigationPane.push(page);
-                    OrientationSupport.supportedDisplayOrientation = SupportedDisplayOrientation.DisplayPortrait;
+        
+        Container {
+            ScrollView {
+                id: scrollView
+                
+                horizontalAlignment: HorizontalAlignment.Fill
+                verticalAlignment: VerticalAlignment.Fill
+                scrollViewProperties.pinchToZoomEnabled: true
+                scrollViewProperties.scrollMode: ScrollMode.Both
+                WebView {
+                    id: webView
+                    url: "local:///assets/web/map-final.html"
+                    
+                    onMessageReceived: {
+                        console.log("message.data ======== " + message.data)
+                        if(message.data === "" || message.data == null) {                     
+                            console.log("javascript message received !!!!!!!!!!")
+                        } else {
+                            var page = genrePageDefinition.createObject();		                                        
+                            navigationPane.push(page);
+                            OrientationSupport.supportedDisplayOrientation = SupportedDisplayOrientation.DisplayPortrait;                     
+                        }
+                    }
+                    
+                    onMinContentScaleChanged: {
+                        scrollView.scrollViewProperties.minContentScale = minContentScale;
+                    }
+                    
+                    onMaxContentScaleChanged: {
+                        scrollView.scrollViewProperties.maxContentScale = maxContentScale;
+                    }            
                 }
             }
+                            
+            Slider {
+                horizontalAlignment: HorizontalAlignment.Fill
+                fromValue: 0
+                toValue: 100                
+                onValueChanged: {
+                    webView.postMessage(value);
+                }
+            }       
         }
         
         attachedObjects: [
             ComponentDefinition {
                 id: genrePageDefinition
                 source: "GenrePage.qml"
-            },
-            ComponentDefinition {
-                id: webPageDefinition
-                source: "WebPage.qml"
             }
         ]        
     }
     
     actions: [
         ActionItem {
+            id: play
             title: "Play"
-            imageSource: "images/rk_play.png"
+            imageSource: "images/play.png"
             ActionBar.placement: ActionBarPlacement.OnBar
-            onTriggered: {
+            onTriggered: {                
+                if (isPlaying) {
+                    startAnimation();                    
+                    isPlaying = false;
+                    imageSource = "images/play.png";
+                } else {
+                    resumeAnimation();
+                    isPlaying = true;
+                    imageSource = "images/pause.png";
+                }
                 webView.postMessage("play");
             }
         }
     ]
+    
+    function startAnimation() {
+        console.log("startAnimation !!!!!!!!!!!!!")
+    }
+    
+    function resumeAnimation() {
+        console.log("resumeAnimation !!!!!!!!!!!!!")
+    }
 }
