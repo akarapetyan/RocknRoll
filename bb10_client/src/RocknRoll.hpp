@@ -4,7 +4,13 @@
 
 #include <QObject>
 
-namespace bb { namespace cascades { class Application; }}
+namespace bb {
+    namespace cascades {
+        class Application;
+    }
+}
+
+class QNetworkReply;
 
 /*!
  * @brief Application pane object

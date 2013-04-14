@@ -29,6 +29,8 @@ Page {
         }
         
         Container {
+            minWidth: 1280
+            maxWidth: 1280
             ScrollView {
                 id: scrollView
                 
@@ -38,7 +40,7 @@ Page {
                 scrollViewProperties.scrollMode: ScrollMode.Both
                 WebView {
                     id: webView
-                    url: "local:///assets/web/test.html"
+                    url: "local:///assets/web/map-final.html"
                     
                     onMessageReceived: {
                         console.log("message.data ======== " + message.data)

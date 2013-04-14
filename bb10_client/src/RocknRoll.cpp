@@ -5,9 +5,7 @@
 #include <bb/cascades/QmlDocument>
 #include <bb/cascades/AbstractPane>
 #include <bb/cascades/SceneCover>
-<<<<<<< HEAD
-#include <QTimer>
-=======
+
 #include <bb/cascades/ListView>
 #include <QNetworkAccessManager>
 #include <QUrl>
@@ -15,7 +13,8 @@
 #include <QNetworkReply>
 #include <QDebug>
 #include <bb/data/JsonDataAccess>
->>>>>>> 68d84268428a73135d06b21a5d5c1ab1726d719a
+
+#include <QTimer>
 
 #include "albumsmodel.hpp"
 #include "songsmodel.hpp"
@@ -90,7 +89,8 @@ void RocknRoll::onArtistReply(QNetworkReply* reply)
 			//int available = reply->bytesAvailable();
 			QString jString = reply->readAll();
 			JsonDataAccess jda;
-			QVariantList list = jda.loadFromBuffer(jString)->toValue<QVariantList>();
+			//QVariantList list = jda.loadFromBuffer(jString)->toValue<QVariantList>();
+			QVariantList list = jda.loadFromBuffer(jString).value<QVariantList>();
 			/*if (available > 0)
 			{
 				int bufSize = sizeof(char) * available + sizeof(char);

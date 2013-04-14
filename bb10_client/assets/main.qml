@@ -52,66 +52,66 @@ NavigationPane {
                 }
             ]
             
-            Container {
-                layout: AbsoluteLayout {}
-                horizontalAlignment: HorizontalAlignment.Left
-                ImageView {
-                    id: image1
-                    imageSource: "images/theArt.png"
-                    layoutProperties: AbsoluteLayoutProperties {
-                        positionX: 768/2 - 350
-                        positionY: 1280/2 - 180                   
-                    }
-                    
-//                    translationX: 50
-//                    translationY: 0 
-                    
-//                    animations: [
-//                        TranslateTransition {
-//                            id: image1Animation
-//                            toY: -200                        
-//                            //easingCurve: StockCurve.ExponentialIn
-//                            duration: 1000
-//                            
-//                            onEnded: {
-//                                //image2Timer.start();
-//                            }     	                        
-//                        }
-//                    ]
-                }
+//            Container {
+//                layout: AbsoluteLayout {}
+//                horizontalAlignment: HorizontalAlignment.Left
+//                ImageView {
+//                    id: image1
+//                    imageSource: "images/theArt.png"
+//                    layoutProperties: AbsoluteLayoutProperties {
+//                        positionX: 768/2 - 350
+//                        positionY: 1280/2 - 180                   
+//                    }
+//                    
+////                    translationX: 50
+////                    translationY: 0 
+//                    
+////                    animations: [
+////                        TranslateTransition {
+////                            id: image1Animation
+////                            toY: -200                        
+////                            //easingCurve: StockCurve.ExponentialIn
+////                            duration: 1000
+////                            
+////                            onEnded: {
+////                                //image2Timer.start();
+////                            }     	                        
+////                        }
+////                    ]
+//                }
+//            
+//            }
             
-            }
-            
-            Container {
-                layout: AbsoluteLayout {}
-                horizontalAlignment: HorizontalAlignment.Right                
-                layoutProperties: AbsoluteLayoutProperties {
-                    positionX: 768/2 + 180
-                    positionY: 1280/2 + 220                  
-                }
-                ImageView {
-                    id: image2
-                    imageSource: "images/off.png"
-                    
-                    
-                    //                translationX: 768/2 + 40
-                    //                translationY: 0                    
-                    
-                    //                animations: [
-                    //                    TranslateTransition {
-                    //                        id: image2Animation
-                    //                        toY: 1280/2 + 30                     
-                    //                        //easingCurve: StockCurve.ExponentialIn                            
-                    //                        duration: 1000
-                    //                        
-                    //                        onEnded: {
-                    //                            enableToClick = true;                            
-                    //                        }     	                        
-                    //                    }
-                    //                ]
-                }
-            
-            }
+//            Container {
+//                layout: AbsoluteLayout {}
+//                horizontalAlignment: HorizontalAlignment.Right                
+//                layoutProperties: AbsoluteLayoutProperties {
+//                    positionX: 768/2 + 180
+//                    positionY: 1280/2 + 220                  
+//                }
+//                ImageView {
+//                    id: image2
+//                    imageSource: "images/off.png"
+//                    
+//                    
+//                    //                translationX: 768/2 + 40
+//                    //                translationY: 0                    
+//                    
+//                    //                animations: [
+//                    //                    TranslateTransition {
+//                    //                        id: image2Animation
+//                    //                        toY: 1280/2 + 30                     
+//                    //                        //easingCurve: StockCurve.ExponentialIn                            
+//                    //                        duration: 1000
+//                    //                        
+//                    //                        onEnded: {
+//                    //                            enableToClick = true;                            
+//                    //                        }     	                        
+//                    //                    }
+//                    //                ]
+//                }
+//            
+//            }
 
             onCreationCompleted: {
                 //image1Timer.start();
@@ -120,6 +120,7 @@ NavigationPane {
     }
     onCreationCompleted: {
         Application.cover = appCover.createObject();
+        OrientationSupport.supportedDisplayOrientation = SupportedDisplayOrientation.DisplayPortrait;
     }        
 }
 
