@@ -3,97 +3,87 @@
 <script type='text/javascript' src='https://www.google.com/jsapi'></script>
 <script type='text/javascript' src='js/jquery.min.js'></script>
 <script type='text/javascript'>
-	var i, l, editedData = [], step = 1,dummyData;
-
-	$.getJSON("http://172.24.20.85/index.php/artists/artists_by_year/2008", function(data) {
-		dummyData = [].push(data);
-		doOnLoad();
+	var i, l, editedData = [], step = 1;
+	
+	google.load('visualization', '1', {
+		'packages' : [ 'geochart' ]
 	});
+	google.setOnLoadCallback(drawMarkersMap);
+
+	var dummyData = [{"year":"2001","metadata":[{"genre":"pop","popularity":"0.397569595443","Latitude":"52.51607","Longitude":"13.37698","artist_id":"ARNJVSL1187B99AFD4"},
+	                                            {"genre":"classic pop and rock","popularity":"0.415441655824","Latitude":"33.74831","Longitude":"-84.39111","artist_id":"ARWQ3M31187FB4CF01"},
+	                                            {"genre":"usa","popularity":"0.504307725982","Latitude":"40.71455","Longitude":"-74.00712","artist_id":"AR0O3AV1187FB4D030"},{"genre":"black metal","popularity":"0.352919183632","Latitude":"37.97615","Longitude":"23.73641","artist_id":"ARF3L8J1187B9B7866"},{"genre":"usa","popularity":"0.618219159412","Latitude":"34.05349","Longitude":"-118.24532","artist_id":"AR46CAD1187FB4D84B"},{"genre":"usa","popularity":"0.618219159412","Latitude":"34.05349","Longitude":"-118.24532","artist_id":"AR46CAD1187FB4D84B"},{"genre":"usa","popularity":"0.618219159412","Latitude":"34.05349","Longitude":"-118.24532","artist_id":"AR46CAD1187FB4D84B"},{"genre":"metal","popularity":"0.546545161955","Latitude":"35.2225","Longitude":"-80.83754","artist_id":"AR7GUNF1187B990CCF"},{"genre":"stoner metal","popularity":"0.446071584412","Latitude":"43.07295","Longitude":"-89.38669","artist_id":"ARRH2S81187B98C8AA"},{"genre":"stoner metal","popularity":"0.446071584412","Latitude":"43.07295","Longitude":"-89.38669","artist_id":"ARRH2S81187B98C8AA"},{"genre":"uk","popularity":"0.561830537939","Latitude":"54.89814","Longitude":"-1.53179","artist_id":"ARIZODP1187B9AD272"},{"genre":"uk","popularity":"0.561830537939","Latitude":"54.89814","Longitude":"-1.53179","artist_id":"ARIZODP1187B9AD272"},{"genre":"finnish","popularity":"0.39444029407","Latitude":"64.95014","Longitude":"26.06739","artist_id":"ARUL0VB1187B9A01AA"},{"genre":"hip hop rnb and dance hall","popularity":"0.515325300572","Latitude":"40.8079","Longitude":"-73.9454","artist_id":"ARMB95F1187B9B5B93"},{"genre":"hip hop rnb and dance hall","popularity":"0.515325300572","Latitude":"40.8079","Longitude":"-73.9454","artist_id":"ARMB95F1187B9B5B93"},{"genre":"jazz and blues","popularity":"0.375374819487","Latitude":"40.76596","Longitude":"-95.3756","artist_id":"ARA82JG1187FB36131"},{"genre":"folk","popularity":"0.362960597112","Latitude":"30.16602","Longitude":"-96.39998","artist_id":"AR9LT7R1187FB4543A"},{"genre":"los angeles","popularity":"0.267757495381","Latitude":"34.05349","Longitude":"-118.24532","artist_id":"ARMSW7X1187FB5B504"},{"genre":"rock and indie","popularity":"0.458592024908","Latitude":"40.79263","Longitude":"-73.80817","artist_id":"ARE0OLY1187B9AD19F"},{"genre":"rock and indie","popularity":"0.458592024908","Latitude":"40.79263","Longitude":"-73.80817","artist_id":"ARE0OLY1187B9AD19F"},{"genre":"san francisco","popularity":"0.396963183629","Latitude":"37.77916","Longitude":"-122.42005","artist_id":"ARY2ZUX1187B9A266C"},{"genre":"rnb","popularity":"0.383863704328","Latitude":"51.50632","Longitude":"-0.12714","artist_id":"AR21YNH1187FB49649"},{"genre":"rnb","popularity":"0.383863704328","Latitude":"51.50632","Longitude":"-0.12714","artist_id":"AR21YNH1187FB49649"},{"genre":"rnb","popularity":"0.383863704328","Latitude":"51.50632","Longitude":"-0.12714","artist_id":"AR21YNH1187FB49649"},{"genre":"rnb","popularity":"0.383863704328","Latitude":"51.50632","Longitude":"-0.12714","artist_id":"AR21YNH1187FB49649"},{"genre":"rock and indie","popularity":"0.436329933866","Latitude":"34.09834","Longitude":"-118.32674","artist_id":"ARKT5SH1187B9AE8BF"},{"genre":"seattle","popularity":"0.607971809563","Latitude":"47.60356","Longitude":"-122.32944","artist_id":"ARFVYJI1187B9B8E13"},{"genre":"world","popularity":"0.373552391014","Latitude":"27.53092","Longitude":"-99.502","artist_id":"ARYFXQ21187FB4DAEF"},{"genre":"jazz and blues","popularity":"0.383877493634","Latitude":"39.15093","Longitude":"-123.2079","artist_id":"AR7BMMV1187FB5B2D7"},{"genre":"usa","popularity":"0.355646469026","Latitude":"41.50471","Longitude":"-81.69074","artist_id":"ARTR7971187FB4CF69"},{"genre":"uk","popularity":"0.393660867924","Latitude":"57.15382","Longitude":"-2.10679","artist_id":"ARK8EHO1187B9B71D1"},{"genre":"grindcore","popularity":"0.457553909836","Latitude":"-37.81753","Longitude":"144.96715","artist_id":"AR0VZWC1187B99BA57"},{"genre":"grindcore","popularity":"0.457553909836","Latitude":"-37.81753","Longitude":"144.96715","artist_id":"AR0VZWC1187B99BA57"},{"genre":"pop and chart","popularity":"0.661349364282","Latitude":"39.74001","Longitude":"-104.99226","artist_id":"AR4EQ231187B99368F"},{"genre":"shock rock","popularity":"0.607792751463","Latitude":"42.33168","Longitude":"-83.04792","artist_id":"AR1ABAO1187FB531E1"},{"genre":"united states","popularity":"0.821648466961","Latitude":"40.8079","Longitude":"-73.9454","artist_id":"AR52EZT1187B9900BF"},{"genre":"united states","popularity":"0.821648466961","Latitude":"40.8079","Longitude":"-73.9454","artist_id":"AR52EZT1187B9900BF"},{"genre":"united states","popularity":"0.821648466961","Latitude":"40.8079","Longitude":"-73.9454","artist_id":"AR52EZT1187B9900BF"},{"genre":"uk","popularity":"0.621085212055","Latitude":"57.15382","Longitude":"-2.10679","artist_id":"ARW9FP41187B98C2A7"},{"genre":"rock and roll","popularity":"0.469425907976","Latitude":"40.85715","Longitude":"-73.85678","artist_id":"ARD0FN11187B9B25CD"},{"genre":"uk","popularity":"0.413261378295","Latitude":"51.50632","Longitude":"-0.12714","artist_id":"AR4R0741187FB39AF2"},{"genre":"usa","popularity":"0.607257279581","Latitude":"34.05349","Longitude":"-118.24532","artist_id":"AR03BDP1187FB5B324"},{"genre":"warp","popularity":"0.467885511383","Latitude":"52.47859","Longitude":"-1.9086","artist_id":"ARFNJ4O1187B9A204B"},{"genre":"latin jazz","popularity":"0.369076870549","Latitude":"38.62774","Longitude":"-90.19951","artist_id":"AR9ST641187B99B4DE"},{"genre":"singer","popularity":"0.343844499414","Latitude":"42.54843","Longitude":"2.38596","artist_id":"ARZBYDY1187FB46DD7"},{"genre":"rock and indie","popularity":"0.531157063062","Latitude":"40.65507","Longitude":"-73.94888","artist_id":"ARYOPH81187B98AEED"},{"genre":"hip hop rnb and dance hall","popularity":"0.562506672289","Latitude":"18.22328","Longitude":"-66.42889","artist_id":"ARBNXYA1187FB51C50"},{"genre":"soundtrack composer","popularity":"0.392994622588","Latitude":"40.71455","Longitude":"-74.00712","artist_id":"ARZVEF91187B9AC770"},{"genre":"soundtrack composer","popularity":"0.399042081432","Latitude":"33.89275","Longitude":"35.48527","artist_id":"AR9ILJF1187B9B80ED"},{"genre":"jazz and blues","popularity":"0.339020746721","Latitude":"42.33168","Longitude":"-83.04792","artist_id":"AR2G8SU1187FB4A871"},{"genre":"soundtrack","popularity":"0.491828704353","Latitude":"34.05349","Longitude":"-118.24532","artist_id":"ARBM57Q1187B9AF97C"},{"genre":"soundtrack","popularity":"0.491828704353","Latitude":"34.05349","Longitude":"-118.24532","artist_id":"ARBM57Q1187B9AF97C"},{"genre":"folk","popularity":"0.418418096509","Latitude":"43.64856","Longitude":"-79.38533","artist_id":"AR3GE071187B9A6D71"},{"genre":"usa","popularity":"0.837714708582","Latitude":"36.16778","Longitude":"-86.77836","artist_id":"ARF2EHS1187B994F4E"},{"genre":"usa","popularity":"0.837714708582","Latitude":"36.16778","Longitude":"-86.77836","artist_id":"ARF2EHS1187B994F4E"},{"genre":"rock and indie","popularity":"0.348332908981","Latitude":"42.32807","Longitude":"-83.7336","artist_id":"ARE0X5X1187B993A86"},{"genre":"rock","popularity":"0.779968004597","Latitude":"49.26044","Longitude":"-123.11403","artist_id":"ARPAAHK1187B9ABB00"},{"genre":"norwegian","popularity":"0.428441940289","Latitude":"64.55653","Longitude":"12.66538","artist_id":"AR2EBRG1187B9B07C8"},{"genre":"southern hip-hop","popularity":"0.574497025958","Latitude":"33.74831","Longitude":"-84.39111","artist_id":"AR3MSAN1187B98F06B"},{"genre":"london","popularity":"0.453000826092","Latitude":"51.50632","Longitude":"-0.12714","artist_id":"ARTC5DW1187B98FCF2"},{"genre":"london","popularity":"0.453000826092","Latitude":"51.50632","Longitude":"-0.12714","artist_id":"ARTC5DW1187B98FCF2"},{"genre":"metal","popularity":"0.560819769262","Latitude":"32.61436","Longitude":"-86.68073","artist_id":"ARHRY5S1187B99B96F"},{"genre":"metal","popularity":"0.560819769262","Latitude":"32.61436","Longitude":"-86.68073","artist_id":"ARHRY5S1187B99B96F"},{"genre":"usa","popularity":"0.517328583566","Latitude":"40.10216","Longitude":"-85.67869","artist_id":"ARPKK761187FB4D53C"},{"genre":"classic pop and rock","popularity":"0.457611173992","Latitude":"51.50632","Longitude":"-0.12714","artist_id":"AROJAG11187B9B71A3"},{"genre":"irish folk","popularity":"0.378969800502","Latitude":"53.41961","Longitude":"-8.24055","artist_id":"AR0V36F1187FB366B1"},{"genre":"usa","popularity":"0.587194101519","Latitude":"40.71455","Longitude":"-74.00712","artist_id":"AR9O98A1187FB39621"},{"genre":"usa","popularity":"0.587194101519","Latitude":"40.71455","Longitude":"-74.00712","artist_id":"AR9O98A1187FB39621"},{"genre":"world","popularity":"0.472451771871","Latitude":"17.57975","Longitude":"-3.99883","artist_id":"ARXI7WU1187FB4D75E"},{"genre":"uk","popularity":"0.531303318565","Latitude":"51.50632","Longitude":"-0.12714","artist_id":"ARASYMJ1187B9ACAF2"},{"genre":"usa","popularity":"0.504307725982","Latitude":"40.71455","Longitude":"-74.00712","artist_id":"AR0O3AV1187FB4D030"},{"genre":"finnish","popularity":"0.414275681641","Latitude":"60.17116","Longitude":"24.93258","artist_id":"ARDDWUI1187FB379F7"},{"genre":"rock","popularity":"0.620309820783","Latitude":"44.16104","Longitude":"-77.3819","artist_id":"ARY53RR1187B9AE485"},{"genre":"trance","popularity":"0.512226738318","Latitude":"34.23294","Longitude":"-102.4102","artist_id":"AR035N21187FB3938E"},{"genre":"usa","popularity":"0.607257279581","Latitude":"34.05349","Longitude":"-118.24532","artist_id":"AR03BDP1187FB5B324"},{"genre":"hip hop rnb and dance hall","popularity":"0.515325300572","Latitude":"40.8079","Longitude":"-73.9454","artist_id":"ARMB95F1187B9B5B93"},{"genre":"hip hop rnb and dance hall","popularity":"0.515325300572","Latitude":"40.8079","Longitude":"-73.9454","artist_id":"ARMB95F1187B9B5B93"},{"genre":"hip hop rnb and dance hall","popularity":"0.515325300572","Latitude":"40.8079","Longitude":"-73.9454","artist_id":"ARMB95F1187B9B5B93"},{"genre":"hip hop rnb and dance hall","popularity":"0.515325300572","Latitude":"40.8079","Longitude":"-73.9454","artist_id":"ARMB95F1187B9B5B93"},{"genre":"hip hop rnb and dance hall","popularity":"0.562506672289","Latitude":"18.22328","Longitude":"-66.42889","artist_id":"ARBNXYA1187FB51C50"},{"genre":"folk","popularity":"0.362960597112","Latitude":"30.16602","Longitude":"-96.39998","artist_id":"AR9LT7R1187FB4543A"},{"genre":"hip-hop","popularity":"0.513065654505","Latitude":"40.67856","Longitude":"-73.41853","artist_id":"AR1Q25M1187B9B0D73"},{"genre":"rock n roll","popularity":"0.467071006345","Latitude":"-13.442","Longitude":"-41.9952","artist_id":"AR4R1FL1187FB55C3B"},{"genre":"rock n roll","popularity":"0.467071006345","Latitude":"-13.442","Longitude":"-41.9952","artist_id":"AR4R1FL1187FB55C3B"},{"genre":"us","popularity":"0.457841156094","Latitude":"34.05349","Longitude":"-118.24532","artist_id":"AR0CANF1187B9AF35F"},{"genre":"us","popularity":"0.457841156094","Latitude":"34.05349","Longitude":"-118.24532","artist_id":"AR0CANF1187B9AF35F"},{"genre":"us","popularity":"0.457841156094","Latitude":"34.05349","Longitude":"-118.24532","artist_id":"AR0CANF1187B9AF35F"},{"genre":"rock","popularity":"0.359185992752","Latitude":"54.97938","Longitude":"-1.54508","artist_id":"ARSPQ0H1187B999944"},{"genre":"united kingdom","popularity":"0.548533654534","Latitude":"51.50632","Longitude":"-0.12714","artist_id":"ARXDQJB1187FB57154"},{"genre":"united kingdom","popularity":"0.548533654534","Latitude":"51.50632","Longitude":"-0.12714","artist_id":"ARXDQJB1187FB57154"},{"genre":"uk","popularity":"0.545730700114","Latitude":"51.50632","Longitude":"-0.12714","artist_id":"ARAKARO1187B9A1EB6"},{"genre":"uk","popularity":"0.545730700114","Latitude":"51.50632","Longitude":"-0.12714","artist_id":"ARAKARO1187B9A1EB6"},{"genre":"rock and indie","popularity":"0.490079584183","Latitude":"40.71455","Longitude":"-74.00712","artist_id":"AR0IVSA1187FB4F069"},{"genre":"folk","popularity":"0.453435791193","Latitude":"40.71455","Longitude":"-74.00712","artist_id":"ARC6UC81187B989062"},{"genre":"folk","popularity":"0.405178358908","Latitude":"37.77916","Longitude":"-122.42005","artist_id":"AREOGMA1187B9908EF"},{"genre":"rock","popularity":"0.579441937886","Latitude":"37.27188","Longitude":"-119.27023","artist_id":"AR1RMYB1187FB5A59E"},{"genre":"classic pop and rock","popularity":"0.441106359144","Latitude":"30.43883","Longitude":"-90.44116","artist_id":"ARALUUG1187FB58696"},{"genre":"rock and indie","popularity":"0.454541929151","Latitude":"48.85692","Longitude":"2.34121","artist_id":"AR3QRJ91187B98E4C2"},{"genre":"rock and indie","popularity":"0.458592024908","Latitude":"40.79263","Longitude":"-73.80817","artist_id":"ARE0OLY1187B9AD19F"},{"genre":"rock and indie","popularity":"0.458592024908","Latitude":"40.79263","Longitude":"-73.80817","artist_id":"ARE0OLY1187B9AD19F"},{"genre":"uk","popularity":"0.424940330803","Latitude":"51.4855","Longitude":"-0.37196","artist_id":"ARNPPTH1187B9AD429"},{"genre":"classic pop and rock","popularity":"0.472281210651","Latitude":"34.05349","Longitude":"-118.24532","artist_id":"ARO0QD41187FB3AB0A"},{"genre":"usa","popularity":"0.837714708582","Latitude":"36.16778","Longitude":"-86.77836","artist_id":"ARF2EHS1187B994F4E"},{"genre":"rock and indie","popularity":"0.544321914839","Latitude":"40.72023","Longitude":"-73.24922","artist_id":"ARNHMFD1187FB3B3F6"},{"genre":"usa","popularity":"0.537675628064","Latitude":"47.565","Longitude":"-122.62569","artist_id":"ARBOG0H1187B99F775"},{"genre":"uk","popularity":"0.769674279295","Latitude":"51.50632","Longitude":"-0.12714","artist_id":"ARBAW9R1187B98FB6B"},{"genre":"star academy","popularity":"0.374365680245","Latitude":"43.21183","Longitude":"2.3584","artist_id":"ARJW7KB1187FB47C36"},{"genre":"world","popularity":"0.373552391014","Latitude":"27.53092","Longitude":"-99.502","artist_id":"ARYFXQ21187FB4DAEF"},{"genre":"electric blues","popularity":"0.466628888902","Latitude":"34.36401","Longitude":"-89.51877","artist_id":"AR7TTS41187B9B42D3"},{"genre":"classic pop and rock","popularity":"0.406642648699","Latitude":"42.33168","Longitude":"-83.04792","artist_id":"AR6UVLC1187B9B4D4C"},{"genre":"rock and indie","popularity":"0.5723739799","Latitude":"40.85251","Longitude":"-73.13585","artist_id":"ARG9CID1187B9AB010"},{"genre":"hip hop rnb and dance hall","popularity":"0.39507381874","Latitude":"40.85715","Longitude":"-73.85678","artist_id":"ARLGUTA1187B9B605F"},{"genre":"usa","popularity":"0.517328583566","Latitude":"40.10216","Longitude":"-85.67869","artist_id":"ARPKK761187FB4D53C"},{"genre":"uk","popularity":"0.578993548664","Latitude":"51.11655","Longitude":"-0.18703","artist_id":"ARWA6NT1187FB3F15C"},{"genre":"rock and indie","popularity":"0.541888972034","Latitude":"40.82624","Longitude":"-74.47995","artist_id":"ARMAC4T1187FB3FA4C"},{"genre":"rock and indie","popularity":"0.491468881637","Latitude":"34.05349","Longitude":"-118.24532","artist_id":"AR82DJK1187B991107"},{"genre":"rock and indie","popularity":"0.491468881637","Latitude":"34.05349","Longitude":"-118.24532","artist_id":"AR82DJK1187B991107"},{"genre":"rock and indie","popularity":"0.491468881637","Latitude":"34.05349","Longitude":"-118.24532","artist_id":"AR82DJK1187B991107"},{"genre":"rock and indie","popularity":"0.491468881637","Latitude":"34.05349","Longitude":"-118.24532","artist_id":"AR82DJK1187B991107"},{"genre":"soundtrack composer","popularity":"0.473700501297","Latitude":"39.37413","Longitude":"22.95775","artist_id":"ARMPRI31187FB4F7D9"},{"genre":"uk","popularity":"0.411195687878","Latitude":"55.8578","Longitude":"-4.24251","artist_id":"AR35YUO1187B9AD83E"},{"genre":"united states","popularity":"0.821648466961","Latitude":"40.8079","Longitude":"-73.9454","artist_id":"AR52EZT1187B9900BF"},{"genre":"rock and indie","popularity":"0.505181615869","Latitude":"-37.81753","Longitude":"144.96715","artist_id":"ARIW1BH1187FB4C94A"},{"genre":"trance","popularity":"0.512226738318","Latitude":"34.23294","Longitude":"-102.4102","artist_id":"AR035N21187FB3938E"},{"genre":"trance","popularity":"0.512226738318","Latitude":"34.23294","Longitude":"-102.4102","artist_id":"AR035N21187FB3938E"},{"genre":"metal","popularity":"0.446170543172","Latitude":"33.74831","Longitude":"-84.39111","artist_id":"ARC7C241187B990F7F"},{"genre":"rock","popularity":"0.44793548048","Latitude":"43.64856","Longitude":"-79.38533","artist_id":"ARD842G1187B997376"},{"genre":"stoner metal","popularity":"0.446071584412","Latitude":"43.07295","Longitude":"-89.38669","artist_id":"ARRH2S81187B98C8AA"},{"genre":"stoner metal","popularity":"0.446071584412","Latitude":"43.07295","Longitude":"-89.38669","artist_id":"ARRH2S81187B98C8AA"},{"genre":"usa","popularity":"0.607257279581","Latitude":"34.05349","Longitude":"-118.24532","artist_id":"AR03BDP1187FB5B324"},{"genre":"warp","popularity":"0.467885511383","Latitude":"52.47859","Longitude":"-1.9086","artist_id":"ARFNJ4O1187B9A204B"},{"genre":"folk","popularity":"0.435252323542","Latitude":"31.1689","Longitude":"-100.07715","artist_id":"AR7ISJJ1187B9B2CD6"},{"genre":"folk","popularity":"0.435252323542","Latitude":"31.1689","Longitude":"-100.07715","artist_id":"AR7ISJJ1187B9B2CD6"},{"genre":"rock","popularity":"0.471170681046","Latitude":"37.82245","Longitude":"-85.69091","artist_id":"AR7W7Z01187B998286"},{"genre":"los angeles","popularity":"0.267757495381","Latitude":"34.05349","Longitude":"-118.24532","artist_id":"ARMSW7X1187FB5B504"},{"genre":"rock and indie","popularity":"0.532266186253","Latitude":"40.71455","Longitude":"-74.00712","artist_id":"ARDBSFT1187B9AC9C1"},{"genre":"rock","popularity":"0.467110648585","Latitude":"54.5958","Longitude":"-5.93494","artist_id":"AR56P361187B9AC4DB"},{"genre":"folk","popularity":"0.453435791193","Latitude":"40.71455","Longitude":"-74.00712","artist_id":"ARC6UC81187B989062"},{"genre":"classic pop and rock","popularity":"0.374271173856","Latitude":"18.01571","Longitude":"-76.79731","artist_id":"AR3PN3R1187FB4CEBD"},{"genre":"new metal","popularity":"0.583147022091","Latitude":"40.14323","Longitude":"-74.72671","artist_id":"ARQATWU1187B98EE26"},{"genre":"dance and electronica","popularity":"0.413159858773","Latitude":"50.67109","Longitude":"-1.32524","artist_id":"ARSSR8L1187B990BC5"},{"genre":"greatest hits","popularity":"0.438168226182","Latitude":"34.05349","Longitude":"-118.24532","artist_id":"ARTBFV61187FB3C250"},{"genre":"brazil","popularity":"0.347547580526","Latitude":"-22.97673","Longitude":"-43.19508","artist_id":"ARQCHDN1187FB4C7C2"},{"genre":"brazil","popularity":"0.347547580526","Latitude":"-22.97673","Longitude":"-43.19508","artist_id":"ARQCHDN1187FB4C7C2"},{"genre":"shoegaze","popularity":"0.507115548752","Latitude":"43.58015","Longitude":"7.12123","artist_id":"ARB6OGR1187FB4D43D"},{"genre":"rock and indie","popularity":"0.497568734282","Latitude":"40.71455","Longitude":"-74.00712","artist_id":"ARRWAD71187FB3FE44"},{"genre":"rnb","popularity":"0.383863704328","Latitude":"51.50632","Longitude":"-0.12714","artist_id":"AR21YNH1187FB49649"},{"genre":"rnb","popularity":"0.383863704328","Latitude":"51.50632","Longitude":"-0.12714","artist_id":"AR21YNH1187FB49649"},{"genre":"rock","popularity":"0.779968004597","Latitude":"49.26044","Longitude":"-123.11403","artist_id":"ARPAAHK1187B9ABB00"},{"genre":"rock","popularity":"0.779968004597","Latitude":"49.26044","Longitude":"-123.11403","artist_id":"ARPAAHK1187B9ABB00"},{"genre":"rock","popularity":"0.779968004597","Latitude":"49.26044","Longitude":"-123.11403","artist_id":"ARPAAHK1187B9ABB00"},{"genre":"blues","popularity":"0.476955046291","Latitude":"34.82353","Longitude":"-89.99726","artist_id":"ARGLOWN1187B99C06D"},{"genre":"uk","popularity":"0.490034460639","Latitude":"53.4796","Longitude":"-2.24881","artist_id":"AR336PG1187FB3DC6E"},{"genre":"star academy","popularity":"0.374365680245","Latitude":"43.21183","Longitude":"2.3584","artist_id":"ARJW7KB1187FB47C36"},{"genre":"uk","popularity":"0.498668874796","Latitude":"51.27562","Longitude":"0.17898","artist_id":"ARD5K161187B9AC784"},{"genre":"usa","popularity":"0.512229189391","Latitude":"33.86404","Longitude":"-118.39535","artist_id":"ARGFFA01187B9A2D11"},{"genre":"usa","popularity":"0.512229189391","Latitude":"33.86404","Longitude":"-118.39535","artist_id":"ARGFFA01187B9A2D11"},{"genre":"usa","popularity":"0.512229189391","Latitude":"33.86404","Longitude":"-118.39535","artist_id":"ARGFFA01187B9A2D11"},{"genre":"uk","popularity":"0.507464243115","Latitude":"53.45644","Longitude":"-2.63265","artist_id":"ARWPYQI1187FB4D55A"},{"genre":"uk","popularity":"0.507464243115","Latitude":"53.45644","Longitude":"-2.63265","artist_id":"ARWPYQI1187FB4D55A"},{"genre":"rnb","popularity":"0.908202619208","Latitude":"13.11199","Longitude":"-59.59895","artist_id":"ARKU3Z61187FB51DCA"},{"genre":"hip hop rnb and dance hall","popularity":"0.463900094792","Latitude":"51.16418","Longitude":"10.45415","artist_id":"AR5O6W51187FB46984"},{"genre":"folk","popularity":"0.341512969062","Latitude":"30.2676","Longitude":"-97.74298","artist_id":"ARBYFR71187B99A2A4"},{"genre":"metal","popularity":"0.560819769262","Latitude":"32.61436","Longitude":"-86.68073","artist_id":"ARHRY5S1187B99B96F"},{"genre":"jazz and blues","popularity":"0.544257505725","Latitude":"32.77815","Longitude":"-96.7954","artist_id":"ART3O5Z1187B9AB043"},{"genre":"jazz and blues","popularity":"0.544257505725","Latitude":"32.77815","Longitude":"-96.7954","artist_id":"ART3O5Z1187B9AB043"},{"genre":"classic pop and rock","popularity":"0.472512950174","Latitude":"33.6671","Longitude":"-117.76505","artist_id":"ARW5IF01187B9AEA98"},{"genre":"pop and chart","popularity":"0.661349364282","Latitude":"39.74001","Longitude":"-104.99226","artist_id":"AR4EQ231187B99368F"},{"genre":"rock and indie","popularity":"0.653897217428","Latitude":"42.33168","Longitude":"-83.04792","artist_id":"AR8V1WA1187B9AD9E9"},{"genre":"metalcore","popularity":"0.455478440588","Latitude":"34.19363","Longitude":"-79.76906","artist_id":"ART59BB1187FB3866E"},{"genre":"producers","popularity":"0.375367266727","Latitude":"51.50632","Longitude":"-0.12714","artist_id":"ARXAHU31187B9B1520"}]}];
 	
+	editedData.push([ 'Latitude', 'Longitude', 'popularity' ]);
+	for(i = 0, l = dummyData[0].metadata.length; i < l; i++){
+		var latitude = parseFloat(dummyData[0].metadata[i].Latitude);
+		var longitude = parseFloat(dummyData[0].metadata[i].Longitude);
+		var popularity = parseFloat(dummyData[0].metadata[i].popularity);
+		
+		editedData.push([latitude, longitude, popularity]);
+	}
 	
+	var playOneFrame, timer;
 
-	function doOnLoad() {
-		google.load('visualization', '1', {
-			'packages' : [ 'geochart' ]
-		});
-		google.setOnLoadCallback(drawMarkersMap);
-		editedData.push([ 'Latitude', 'Longitude', 'popularity' ]);
-		for (i = 0, l = dummyData[0].metadata.length; i < l; i++) {
-			var latitude = parseFloat(dummyData[0].metadata[i].Latitude);
-			var longitude = parseFloat(dummyData[0].metadata[i].Longitude);
-			var popularity = parseFloat(dummyData[0].metadata[i].popularity);
-
-			editedData.push([ latitude, longitude, popularity ]);
-		}
-
-		var playOneFrame, timer;
-
-		function drawMarkersMap() {
-			playOneFrame = function() {
-				if (step < dummyData.length) {
-					for ( var i = 0; i < data.getNumberOfRows(); i++) {
-						data.setValue(i, 2,
-								dummyData[step].metadata[i].popularity);
-					}
-					chart.draw(data, options);
-				} else {
-					clearTimeout(timer);
+	function drawMarkersMap() {		
+		playOneFrame = function() {
+			if (step < dummyData.length) {				
+				for ( var i = 0; i < data.getNumberOfRows(); i++) {
+					data.setValue(i, 2, dummyData[step].metadata[i].popularity);					
 				}
-				step++;
+				chart.draw(data, options);
+			} else {
+				clearTimeout(timer);
 			}
-
-			var data = google.visualization.arrayToDataTable(editedData);
-
-			var options = {
-				datalessRegionColor : '3EAAED',
-				backgroundColor : '2F0733',
-				displayMode : 'markers',
-				colorAxis : {
-					minValue : 0,
-					colors : [ '#FF0000', '#0000FF', '#00FF00' ]
-				}
-			};
-
-			var chart = new google.visualization.GeoChart(document
-					.getElementById('chart_div'));
-			chart.draw(data, options);
-
-			google.visualization.events.addListener(chart, 'select', function(
-					event) {
-				var selected = chart.getSelection();
-				var result = {};
-			});
-
-			var isFirstTime = true
-			google.visualization.events.addListener(chart, 'ready', function(
-					event) {
-				if (isFirstTime) {
-					$('svg > g > g:nth-last-child(3)').remove();
-					isFirstTime = false;
-				}
-			});
-
-			$('#example1-b1').click(function() {
-				play();
-			});
-
-			$('#example1-b2').click(function() {
-				pause();
-			});
-
-		}
-		;
-
-		function play() {
-			playOneFrame();
-			timer = setInterval(function() {
-				playOneFrame();
-			}, 1000);
+			step++;
 		}
 
-		function pause() {
-			clearTimeout(timer);
-		}
+		var data = google.visualization.arrayToDataTable(editedData);
+
+		var options = {
+			datalessRegionColor: '3EAAED',
+			backgroundColor: '2F0733',
+			displayMode: 'markers',			
+			colorAxis : {
+				minValue : 0,
+				colors : [ '#FF0000', '#0000FF', '#00FF00' ]
+			}
+		};
+
+		var chart = new google.visualization.GeoChart(document
+				.getElementById('chart_div'));
+		chart.draw(data, options);
+		
+		google.visualization.events.addListener(chart, 'select', function(event){
+			var selected = chart.getSelection();
+			var result = {};			
+		});
+		
+		var isFirstTime = true
+		google.visualization.events.addListener(chart, 'ready', function(event){
+			if(isFirstTime){
+				$('svg > g > g:nth-last-child(3)').remove();
+				isFirstTime = false;
+			}
+		});
+		
+		$('#example1-b1').click(function() {
+			play();
+		});
+		
+		$('#example1-b2').click(function() {
+			pause();
+		});	
+		
+	};
+	
+	function play(){
+		playOneFrame();
+		timer = setInterval(function(){playOneFrame();},1000);
+	}
+	
+	function pause(){
+		clearTimeout(timer);
 	}
 </script>
 </head>

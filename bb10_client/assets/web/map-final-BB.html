@@ -13,14 +13,17 @@
 	var dummyData = [ {
 		year : 2000,
 		metadata : [ {
+			genre : 'Rock',
 			popularity : 0.8,
 			Latitude : 42.73383,
 			Longitude : -84.59334
 		}, {
+			genre : 'Pop',
 			popularity : 0.1,
 			Latitude : 82.73383,
 			Longitude : -44.59334
 		}, {
+			genre : 'Classic',
 			popularity : 0.1,
 			Latitude : 32.73383,
 			Longitude : -44.59334
@@ -28,14 +31,17 @@
 	}, {
 		year : 2001,
 		metadata : [ {
+			genre : 'Rock',
 			popularity : 0.1,
 			Latitude : 42.73383,
 			Longitude : -84.59334
 		}, {
+			genre : 'Pop',
 			popularity : 0.2,
 			Latitude : 82.73383,
 			Longitude : -44.59334
 		}, {
+			genre : 'Classic',
 			popularity : 0.4,
 			Latitude : 32.73383,
 			Longitude : -44.59334
@@ -43,14 +49,17 @@
 	}, {
 		year : 2002,
 		metadata : [ {
+			genre : 'Rock',
 			popularity : 0.4,
 			Latitude : 42.73383,
 			Longitude : -84.59334
 		}, {
+			genre : 'Pop',
 			popularity : 0.5,
 			Latitude : 82.73383,
 			Longitude : -44.59334
 		}, {
+			genre : 'Classic',
 			popularity : 0.6,
 			Latitude : 32.73383,
 			Longitude : -44.59334
@@ -58,14 +67,17 @@
 	}, {
 		year : 2003,
 		metadata : [ {
+			genre : 'Rock',
 			popularity : 0.5,
 			Latitude : 42.73383,
 			Longitude : -84.59334
 		}, {
+			genre : 'Pop',
 			popularity : 0.6,
 			Latitude : 82.73383,
 			Longitude : -44.59334
 		}, {
+			genre : 'Classic',
 			popularity : 0.4,
 			Latitude : 32.73383,
 			Longitude : -44.59334
@@ -73,14 +85,17 @@
 	}, {
 		year : 2004,
 		metadata : [ {
+			genre : 'Rock',
 			popularity : 0.6,
 			Latitude : 42.73383,
 			Longitude : -84.59334
 		}, {
+			genre : 'Pop',
 			popularity : 0.7,
 			Latitude : 82.73383,
 			Longitude : -44.59334
 		}, {
+			genre : 'Classic',
 			popularity : 0.9,
 			Latitude : 32.73383,
 			Longitude : -44.59334
@@ -88,16 +103,17 @@
 	}, {
 		year : 2005,
 		metadata : [ {
-			gener : 'Rock',
+			genre : 'Rock',
 			popularity : 0.8,
 			Latitude : 42.73383,
 			Longitude : -84.59334
 		}, {
-			gener : 'Rock',
+			genre : 'Pop',
 			popularity : 0.8,
 			Latitude : 82.73383,
 			Longitude : -44.59334
 		}, {
+			genre : 'Classic',
 			popularity : 0.7,
 			Latitude : 82.73383,
 			Longitude : -44.59334
@@ -105,8 +121,12 @@
 	} ];
 	
 	editedData.push([ 'Latitude', 'Longitude', 'popularity' ]);
-	for(i = 0, l = dummyData[0].gener.length; i < l; i++){
-		editedData.push([dummyData[0].gener[i].Latitude, dummyData[0].gener[i].Longitude, dummyData[0].gener[i].popularity]);
+	for(i = 0, l = dummyData[0].metadata.length; i < l; i++){
+		var latitude = parseFloat(dummyData[0].metadata[i].Latitude);
+		var longitude = parseFloat(dummyData[0].metadata[i].Longitude);
+		var popularity = parseFloat(dummyData[0].metadata[i].popularity);
+		
+		editedData.push([ latitude, longitude, popularity ]);
 	}
 	
 	var playOneFrame, timer;
@@ -115,7 +135,7 @@
 		playOneFrame = function() {
 			if (step < dummyData.length) {				
 				for ( var i = 0; i < data.getNumberOfRows(); i++) {
-					data.setValue(i, 2, dummyData[step].gener[i].popularity);					
+					data.setValue(i, 2, dummyData[step].metadata[i].popularity);					
 				}
 				chart.draw(data, options);
 			} else {
@@ -143,8 +163,13 @@
 		google.visualization.events.addListener(chart, 'select', function(event){
 			/*var selected = chart.getSelection();
 			//var baseYear = dummyData[0].year;
-			var result = {};
-		 	result.year = dummyData[step].gener
+			/*genre : 'Rock',
+			popularity : 0.8,
+			Latitude : 42.73383,
+			Longitude : -84.59334*/
+			/*var result = {};
+		 	result.year = dummyData[step].year;
+		 	result.genre = dummyData[step].meta
 			navigator.cascades.postMessage(JSON.stringify(result));		*/
 		});
 		
@@ -189,5 +214,8 @@
 </script>
 </head>
 <body>
+	<input id="example1-b1" type="button" value="Play"></input>
+	<input id="example1-b2" type="button" value="Pause"></input>
+	<div id="chart_div" style="width: 900px; height: 500px;"></div>
 </body>
 </html>
