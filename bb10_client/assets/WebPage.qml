@@ -13,26 +13,7 @@ Page {
             }
         }
     }
-    Container {
-        layout: StackLayout {}
-        Container {
-	            layout: DockLayout {}
-	            
-	            verticalAlignment: VerticalAlignment.Top
-	            horizontalAlignment: HorizontalAlignment.Fill
-	            ImageView {  
-	                imageSource: "images/header.png"
-	            }
-	                            
-	            Container {
-	                verticalAlignment: VerticalAlignment.Center
-	                horizontalAlignment: HorizontalAlignment.Center
-	                Label {
-	                    text: "Listen the music"
-	                }    
-	            }            
-	        }
-        // allows for scrolling
+    Container {        
 	    ScrollView {
 	        Container {
 	            layout: StackLayout {

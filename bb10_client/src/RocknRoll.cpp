@@ -5,6 +5,7 @@
 #include <bb/cascades/QmlDocument>
 #include <bb/cascades/AbstractPane>
 #include <bb/cascades/SceneCover>
+#include <QTimer>
 
 #include "albumsmodel.hpp"
 #include "songsmodel.hpp"
@@ -23,6 +24,7 @@ RocknRoll::RocknRoll(bb::cascades::Application *app)
     qml->setContextProperty("_model1", p1DataModel);
     qml->setContextProperty("_model2", p2DataModel);
 
+    qmlRegisterType<QTimer>("QTimer", 1, 0, "QTimer");
     qmlRegisterType<SceneCover>("bb.cascades", 1, 0, "SceneCover");
     qmlRegisterUncreatableType<AbstractCover>("bb.cascades", 1, 0, "AbstractCover", "An AbstractCover cannot be created.");
 

@@ -1,8 +1,7 @@
 // Navigation pane project template
 import bb.cascades 1.0
 
-Page {
-    // page with a picture detail
+Page {    
     id: pgGenre
     paneProperties: NavigationPaneProperties {
         backButton: ActionItem {
@@ -17,14 +16,14 @@ Page {
     
     Container {
         layout: StackLayout {}
+        //background: back.imagePaint
         
         Container {
             layout: DockLayout {}
             
-            verticalAlignment: VerticalAlignment.Top
-            horizontalAlignment: HorizontalAlignment.Fill
-            ImageView {  
-                imageSource: "images/header.png"
+            verticalAlignment: VerticalAlignment.Top            
+            ImageView {                  
+                imageSource: "images/header1.png"
             }
             Container {
                 verticalAlignment: VerticalAlignment.Center
@@ -37,6 +36,6 @@ Page {
         
         Container {                        
             AlbumListView {}    
-        }        
+        }                
     }        
 }

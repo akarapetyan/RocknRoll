@@ -6,7 +6,7 @@ SceneCover {
             layout: DockLayout {}
                         
             ImageView {
-                imageSource: "images/demoFeatureGraphic.png"
+                imageSource: "images/cover.png"
             }
  
             // A container for the label text
