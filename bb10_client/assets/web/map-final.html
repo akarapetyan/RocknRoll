@@ -1,6 +1,7 @@
 <html>
 <head>
 <script type='text/javascript' src='https://www.google.com/jsapi'></script>
+<script type='text/javascript' src='js/jquery.min.js'></script>
 <script type='text/javascript'>
 	var i, l, editedData = [], step = 1;
 	
@@ -109,8 +110,7 @@
 	function drawMarkersMap() {
 		var timer;
 		function playOneFrame() {
-			if (step < dummyData.length) {
-				//alert("");
+			if (step < dummyData.length) {				
 				for ( var i = 0; i < data.getNumberOfRows(); i++) {
 					data.setValue(i, 2, dummyData[step].gener[i].popularity);					
 				}
@@ -124,11 +124,9 @@
 		var data = google.visualization.arrayToDataTable(editedData);
 
 		var options = {
-			displayMode: 'markers',
-			animation : {
-				duration : 500,
-				easing : 'out'
-			},
+			datalessRegionColor: '3EAAED',
+			backgroundColor: '2F0733',
+			displayMode: 'markers',			
 			colorAxis : {
 				minValue : 0,
 				colors : [ '#FF0000', '#0000FF', '#00FF00' ]
@@ -139,17 +137,35 @@
 				.getElementById('chart_div'));
 		chart.draw(data, options);
 		
-		var button = document.getElementById('example1-b1');
-		button.onclick = function() {
+		google.visualization.events.addListener(chart, 'select', function(event){
+			var selected = chart.getSelection();
+			var result = {};
+			result.popularity = 
+		});
+		
+		var isFirstTime = true
+		google.visualization.events.addListener(chart, 'ready', function(event){
+			if(isFirstTime){
+				$('svg > g > g:nth-last-child(3)').remove();
+				isFirstTime = false;
+			}
+		});
+		
+		$('#example1-b1').click(function() {
 			playOneFrame();
 			timer = setInterval(function(){playOneFrame();},1000);
-		}
+		});
+		
+		$('#example1-b2').click(function() {
+			clearTimeout(timer);
+		});
 		
 	};
 </script>
 </head>
 <body>
 	<input id="example1-b1" type="button" value="Play"></input>
+	<input id="example1-b2" type="button" value="Pause"></input>
 	<div id="chart_div" style="width: 900px; height: 500px;"></div>
 </body>
 </html>
